@@ -1,70 +1,82 @@
+import type { ChessBot } from "../types";
+
+import { Chessboard } from 'react-chessboard'
+import { FaEdit } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+
+import ChessBotCard from '../components/ChessBotCard';
 
 const NewGamePage = () => {
   
   const navigate = useNavigate();
 
+  const [step, setStep] = useState<number>(1);
+  const [whiteBot, setWhiteBot] = useState<ChessBot>({ colour: "White" });
+  const [blackBot, setBlackBot] = useState<ChessBot>({ colour: "Black" });
+
+  const updateState = (chessBot: ChessBot) => {
+    if (step === 1) {
+      setWhiteBot(chessBot);
+      setStep(2);
+    } else {
+      setBlackBot(chessBot);
+      setStep(3);
+    }
+  };
+
   return (
     <div className="flex flex-col items-center gap-8">
-      <h1 className="font-cinzel text-4xl font-bold">Chess Bot Arena</h1>
 
-      <div className="flex flex-row gap-8">
+      <div className="flex flex-col md:flex-row gap-8 w-full">
 
-        <div className="flex flex-col border-2 p-8 w-full md:w-96 gap-8 rounded-md">
+        {step === 1 && (
+          <ChessBotCard chessBot={whiteBot} submitText="Next" onSubmit={updateState} />
+        )}
 
-          <div className="flex w-full justify-center">
-            <span className="font-cinzel text-xl">Player 1</span>
-          </div>
-
-          <div className="mb-5">
-            <label htmlFor="name" className="block mb-2 text-md font-medium text-gray-900 dark:text-white">Name</label>
-            <input type="text" id="name" className="text-md rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" required />
-          </div>
-
-          <div className="mb-5">
-            <label htmlFor="name" className="block mb-2 text-md font-medium text-gray-900 dark:text-white">URL</label>
-            <input type="text" id="url" className="text-md rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" required />
-          </div>
-
-          <button 
-              type="button" 
-              className="text-xl border-solid border-2 border-stone-300 bg-green-800 rounded-md p-2 w-full"
-              onClick={() => navigate("new-game")}
-            >
-              Test Connection
-          </button>
-        </div>
-
-        <div className="font-cinzel font-bold text-2xl self-center bg-neutral-500 p-2 rounded-full">
-          vs
-        </div>
-
-        <div className="flex flex-col border-2 p-8 w-full md:w-96 gap-8 rounded-md">
-
-          <div className="flex w-full justify-center">
-            <span className="font-cinzel text-xl">Player 2</span>
-          </div>
-
-          <div className="mb-5">
-            <label htmlFor="name" className="block mb-2 text-md font-medium text-gray-900 dark:text-white">Name</label>
-            <input type="text" id="name" className="text-md rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" required />
-          </div>
-
-          <div className="mb-5">
-            <label htmlFor="name" className="block mb-2 text-md font-medium text-gray-900 dark:text-white">URL</label>
-            <input type="text" id="url" className="text-md rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" required />
-          </div>
-
-          <button 
-              type="button" 
-              className="text-xl border-solid border-2 border-stone-300 bg-green-800 rounded-md p-2 w-full"
-              onClick={() => navigate("new-game")}
-            >
-              Test Connection
-          </button>
-        </div>
+        {step === 2 && (
+          <ChessBotCard chessBot={blackBot} submitText="Next" onSubmit={updateState} />
+        )}
 
       </div>
+
+    {step === 3 && (
+      <div className="flex flex-col w-96 gap-4 items-center">
+
+        <button 
+          type="button" 
+          className="text-xl text-white border border-neutral-500 rounded-full px-4"
+          onClick={() => setStep(2)}
+        >
+          <div className="flex flex-row items-center gap-2">
+            <span className="leading-8">{blackBot.name}</span>
+            <FaEdit className="w-4 h-4" />
+          </div>
+        </button>
+
+        <Chessboard id="defaultBoard" />
+        
+        <button 
+          type="button" 
+          className="text-xl text-white border border-neutral-500 rounded-full px-4"
+          onClick={() => setStep(1)}
+        >
+          <div className="flex flex-row items-center gap-2">
+            <span className="leading-8">{whiteBot.name}</span>
+            <FaEdit className="w-4 h-4" />
+          </div>
+        </button>
+
+        <button 
+          type="button" 
+          className="text-xl bg-green-700 border-b-4 border-green-900 p-2 rounded-md w-full mt-4"
+          onClick={() => navigate("/game")}
+        >
+          Start Game
+        </button>
+      </div>
+    )}
+
     </div>
   )
 }
