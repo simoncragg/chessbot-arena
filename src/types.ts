@@ -6,3 +6,12 @@ export type ChessBot = {
   url?: string;
 };
 
+export type GameState = {
+  whiteBot: ChessBot;
+  blackBot: ChessBot;
+};
+
+export type Action =
+  | { type: 'SET_WHITE_BOT'; payload: ChessBot }
+  | { type: 'SET_BLACK_BOT'; payload: ChessBot };
+

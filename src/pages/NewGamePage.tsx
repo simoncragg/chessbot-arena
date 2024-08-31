@@ -6,10 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
 
 import ChessBotCard from '../components/ChessBotCard';
+import { useGame } from "../GameContext";
 
 const NewGamePage = () => {
   
   const navigate = useNavigate();
+  const { dispatch } = useGame();
 
   const [step, setStep] = useState<number>(1);
   const [whiteBot, setWhiteBot] = useState<ChessBot>({ colour: "White" });
@@ -24,6 +26,12 @@ const NewGamePage = () => {
       setStep(3);
     }
   };
+
+  const startGame = () => {
+    dispatch({ type: "SET_WHITE_BOT", payload: whiteBot});
+    dispatch({ type: "SET_BLACK_BOT", payload: blackBot});
+    navigate("/game");
+  }
 
   return (
     <div className="flex flex-col items-center gap-8">
@@ -50,7 +58,7 @@ const NewGamePage = () => {
           <button 
             type="button" 
             className="text-xl bg-green-700 border-b-4 border-green-900 p-2 rounded-md w-full mt-4"
-            onClick={() => navigate("/game")}
+            onClick={startGame}
           >
             Start Game
           </button>
