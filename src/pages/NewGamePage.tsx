@@ -40,45 +40,45 @@ const NewGamePage = () => {
 
       </div>
 
-    {step === 3 && (
-      <div className="flex flex-col w-96 gap-4 items-center">
+      {step === 3 && (
+        <div className="flex flex-col w-96 gap-4 items-center">
 
-        <button 
-          type="button" 
-          className="text-xl text-white border border-neutral-500 rounded-full px-4"
-          onClick={() => setStep(2)}
-        >
-          <div className="flex flex-row items-center gap-2">
-            <span className="leading-8">{blackBot.name}</span>
-            <FaEdit className="w-4 h-4" />
-          </div>
-        </button>
+          <EditChessBotButton name={blackBot.name} onClick={() => setStep(2)} />
+          <Chessboard id="defaultBoard" />
+          <EditChessBotButton name={whiteBot.name} onClick={() => setStep(1)} />
 
-        <Chessboard id="defaultBoard" />
-        
-        <button 
-          type="button" 
-          className="text-xl text-white border border-neutral-500 rounded-full px-4"
-          onClick={() => setStep(1)}
-        >
-          <div className="flex flex-row items-center gap-2">
-            <span className="leading-8">{whiteBot.name}</span>
-            <FaEdit className="w-4 h-4" />
-          </div>
-        </button>
-
-        <button 
-          type="button" 
-          className="text-xl bg-green-700 border-b-4 border-green-900 p-2 rounded-md w-full mt-4"
-          onClick={() => navigate("/game")}
-        >
-          Start Game
-        </button>
-      </div>
+          <button 
+            type="button" 
+            className="text-xl bg-green-700 border-b-4 border-green-900 p-2 rounded-md w-full mt-4"
+            onClick={() => navigate("/game")}
+          >
+            Start Game
+          </button>
+        </div>
     )}
 
     </div>
-  )
+  );
+}
+
+interface EditChessBotButtonProps {
+  name: string,
+  onClick: () => void
+}
+
+const EditChessBotButton: React.FC<EditChessBotButtonProps> = ({ name, onClick }) => {
+  return (
+    <button 
+      type="button" 
+      className="text-xl text-white border border-neutral-500 rounded-full px-4"
+      onClick={onClick}
+    >
+      <div className="flex flex-row items-center gap-2">
+        <span className="leading-8">{name}</span>
+        <FaEdit className="w-4 h-4" />
+      </div>
+    </button>
+  );
 }
 
 export default NewGamePage;
