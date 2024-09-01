@@ -1,16 +1,10 @@
-import { builder, Handler } from "@netlify/functions";
+import type { Context } from "@netlify/functions";
 
-const botMove: Handler = async (event: Event) => {
-
-  const { body } = event;
-  console.log(body);
-
-  return {
-    statusCode: 200,
-    body: JSON.stringify({ message: "Hello World" })
-  }
+const botMove = async (req: Request, context: Context) => {
+  console.log("body", req.body);
+  console.log("site: ", context.site);
+  return new Response("Hello, world!")
 }
 
-const handler = builder(botMove);
+export default botMove;
 
-export { handler };
