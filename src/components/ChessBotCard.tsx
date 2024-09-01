@@ -59,12 +59,27 @@ const ChessBotCard: React.FC<ChessBotCardProps> = ({ chessBot, submitText, onSub
 
           <div>
             <label htmlFor="name" className="block mb-2 text-md font-medium text-gray-900 dark:text-white">Name</label>
-            <input ref={nameRef} type="text" id="name" className="text-md rounded-lg block w-full p-2.5 bg-neutral-700 text-white focus:ring-blue-500 focus:border-blue-500" required defaultValue={chessBot.name} />
+            <input 
+              ref={nameRef}  
+              type="text" 
+              id="name"
+              className="text-md rounded-lg block w-full p-2.5 bg-neutral-700 text-white focus:ring-blue-500 focus:border-blue-500" 
+              defaultValue={chessBot.name} 
+              required 
+              autoFocus
+            />
           </div>
 
           <div>
             <label htmlFor="name" className="block mb-2 text-md font-medium text-gray-900 dark:text-white">URL</label>
-            <input ref={urlRef} type="text" id="url" className="text-md rounded-lg block w-full p-2.5 bg-neutral-700 text-white focus:ring-blue-500 focus:border-blue-500" required defaultValue={chessBot.url} />
+            <input 
+              ref={urlRef} 
+              type="text" 
+              id="url" 
+              className="text-md rounded-lg block w-full p-2.5 bg-neutral-700 text-white focus:ring-blue-500 focus:border-blue-500"
+              defaultValue={chessBot.url}
+              required
+            />
             <button 
               type="button" 
               className="mt-2 text-neutral-900 text-xl bg-stone-400 border-b-4 border-stone-500 rounded-md p-2 w-full"
