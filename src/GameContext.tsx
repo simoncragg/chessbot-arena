@@ -1,4 +1,5 @@
 import type { Action, GameState } from "./types";
+
 import React, { createContext, useContext, useReducer } from "react";
 import reducer from "./GameReducer";
 
@@ -15,7 +16,10 @@ const GameContext = createContext({} as GameContextType);
 
 const initialState: GameState = {
   whiteBot:  { colour: "White" },
-  blackBot: { colour: "Black" }
+  blackBot: { colour: "Black" },
+  fen: undefined,
+  currentTurn: undefined,
+  isGameOver: false
 };
 
 export const GameContextProvider = ({ children }: GameContextProviderType) => {
