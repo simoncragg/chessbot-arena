@@ -1,9 +1,13 @@
 import { builder, Handler } from "@netlify/functions";
 
-const botMove: Handler = async (event: Event, context: Context) => {
+const botMove: Handler = async (event: Event) => {
+
+  const { body } = event;
+  console.log(body);
+
   return {
     statusCode: 200,
-    body: JSON.stringify({ message: 'Hello World' }),
+    body: JSON.stringify({ message: "Hello World" })
   }
 }
 

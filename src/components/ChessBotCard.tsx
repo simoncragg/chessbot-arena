@@ -11,14 +11,14 @@ interface ChessBotCardProps {
 
 const ChessBotCard: React.FC<ChessBotCardProps> = ({ chessBot, submitText, onSubmit }) => {
 
-  const nameRef = useRef();
-  const urlRef = useRef();
+  const nameRef = useRef<HTMLInputElement>(null);
+  const urlRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = () => {      
-      const bot = {
+      const bot: ChessBot = {
         colour: chessBot.colour,
-        name: nameRef.current.value,
-        url: urlRef.current.value
+        name: nameRef.current?.value,
+        url: urlRef.current?.value
       };
 
       if (isValid(bot)) {
@@ -27,12 +27,7 @@ const ChessBotCard: React.FC<ChessBotCardProps> = ({ chessBot, submitText, onSub
   };
 
   const isValid = (bot: ChessBot): boolean => {
-    return (
-      bot.name &&
-      bot.name.length > 0 && 
-      bot.url && 
-      isValidUrl(bot.url)
-    );
+    return (bot.name?.length ?? 0) > 0 && isValidUrl(bot.url ?? "");
   };
 
   const isValidUrl = (url: string): boolean => {

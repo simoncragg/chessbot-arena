@@ -1,9 +1,7 @@
-import React from "react";
-
 import { Chessboard } from "react-chessboard";
 import { useGame } from "../GameContext";
 
-const GamePage: React.FC<GamePageProps> = () => {
+const GamePage = () => {
 
   const { state } = useGame();
 

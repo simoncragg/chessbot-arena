@@ -51,9 +51,9 @@ const NewGamePage = () => {
       {step === 3 && (
         <div className="flex flex-col w-96 gap-4 items-center">
 
-          <EditChessBotButton name={blackBot.name} onClick={() => setStep(2)} />
+          <EditChessBotButton name={blackBot.name ?? ""} onClick={() => setStep(2)} />
           <Chessboard id="defaultBoard" />
-          <EditChessBotButton name={whiteBot.name} onClick={() => setStep(1)} />
+          <EditChessBotButton name={whiteBot.name ?? ""} onClick={() => setStep(1)} />
 
           <button 
             type="button" 
