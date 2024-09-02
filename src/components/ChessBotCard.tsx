@@ -35,11 +35,11 @@ const ChessBotCard: React.FC<ChessBotCardProps> = ({ chessBot, submitText, onSub
     return regex.test(url);
   }
 
-  const pawnTextColour = `text-${chessBot.colour.toLowerCase()}`;
+  const pawnTextColour = chessBot.colour === "White" ? "text-white" : "text-black";
   const pawnBgColour = chessBot.colour === "White" ? "bg-black" : "bg-white";
 
 	return (
-    <div className="flex flex-col">  
+    <div className="flex flex-col">
       
       <div className="relative flex flex-col p-8 w-96 text-neutral-300 bg-neutral-800 rounded-md mb-8">
 
