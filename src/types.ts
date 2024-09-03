@@ -12,6 +12,7 @@ export type GameState = {
   fen: string | undefined;
   activePlayer: ChessBot | undefined;
   isGameOver: boolean;
+  isDraw: boolean;
 };
 
 export type Action =

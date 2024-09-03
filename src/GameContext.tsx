@@ -19,7 +19,8 @@ const initialState: GameState = {
   blackBot: { colour: "Black" },
   fen: undefined,
   activePlayer: undefined,
-  isGameOver: false
+  isGameOver: false,
+  isDraw: false,
 };
 
 export const GameContextProvider = ({ children }: GameContextProviderType) => {

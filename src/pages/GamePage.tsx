@@ -6,7 +6,7 @@ import { useGame } from "../GameContext";
 const GamePage = () => {
 
   const { state, dispatch } = useGame();
-  const { fen, activePlayer } = state;
+  const { fen, activePlayer, isGameOver, isDraw } = state;
 
   useEffect(() => {
     dispatch({ type: "INIT_GAME" });
@@ -27,11 +27,11 @@ const GamePage = () => {
       dispatch({ type: "MAKE_MOVE", payload: move });
     };
     
-    if (activePlayer) {
+    if (activePlayer && !isGameOver) {
       setTimeout(() => makeNextMove(), getRandomInt(500, 3000));
     }
 
-  }, [dispatch, fen, activePlayer]);
+  }, [dispatch, fen, activePlayer, isGameOver]);
 
   return (
     <div className="flex flex-col items-center w-full bg-neutral-900 gap-8">
@@ -40,6 +40,11 @@ const GamePage = () => {
           <span className="text-2xl">{ state.blackBot.name }</span>
           <Chessboard position={fen} />
           <span className="text-2xl">{ state.whiteBot.name }</span>
+          
+            {isGameOver && !isDraw && (
+              <span className="text-4xl">{activePlayer!.name} wins!</span>
+            )}
+
         </div>
       </div>
     </div>

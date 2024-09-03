@@ -18,7 +18,13 @@ const reducer = (state: GameState, action: Action): GameState => {
 
 function initGame(state: GameState) {
   const chess = new Chess();
-  return { ...state, fen: chess.fen(), activePlayer: state.whiteBot };
+  return { 
+    ...state, 
+    fen: chess.fen(),
+    activePlayer: state.whiteBot,
+    isGameOver: false,
+    isDraw: false,
+  };
 }
 
 function makeMove(state: GameState, moveSan: string) {
