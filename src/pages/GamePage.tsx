@@ -6,7 +6,7 @@ import { useGame } from "../GameContext";
 const GamePage = () => {
 
   const { state, dispatch } = useGame();
-  const { fen, currentTurn } = state;
+  const { fen, activePlayer } = state;
 
   useEffect(() => {
     dispatch({ type: "INIT_GAME" });
@@ -15,7 +15,7 @@ const GamePage = () => {
   useEffect(() => {
 
     const nextMove = async () => {
-      const response = await fetch(currentTurn!.url!, {
+      const response = await fetch(activePlayer!.url!, {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({ fen }),
@@ -23,15 +23,15 @@ const GamePage = () => {
 
       const result = await response.json();
       const { move } = result;
-      console.log("nextMove", currentTurn!.colour, move);
+      console.log("nextMove", activePlayer!.colour, move);
       dispatch({ type: "MAKE_MOVE", payload: move });
     };
     
-    if (currentTurn) {
+    if (activePlayer) {
       setTimeout(() => nextMove(), getRandomInt(500, 3000));
     }
 
-  }, [dispatch, fen, currentTurn]);
+  }, [dispatch, fen, activePlayer]);
 
   return (
     <div className="flex flex-col items-center w-full bg-neutral-900 gap-8">

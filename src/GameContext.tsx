@@ -18,7 +18,7 @@ const initialState: GameState = {
   whiteBot:  { colour: "White" },
   blackBot: { colour: "Black" },
   fen: undefined,
-  currentTurn: undefined,
+  activePlayer: undefined,
   isGameOver: false
 };
 

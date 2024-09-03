@@ -10,7 +10,7 @@ export type GameState = {
   whiteBot: ChessBot;
   blackBot: ChessBot;
   fen: string | undefined;
-  currentTurn: ChessBot | undefined;
+  activePlayer: ChessBot | undefined;
   isGameOver: boolean;
 };
 

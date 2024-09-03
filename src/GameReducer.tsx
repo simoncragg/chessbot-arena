@@ -18,7 +18,7 @@ const reducer = (state: GameState, action: Action): GameState => {
 
 function initGame(state: GameState) {
   const chess = new Chess();
-  return { ...state, fen: chess.fen(), currentTurn: state.whiteBot };
+  return { ...state, fen: chess.fen(), activePlayer: state.whiteBot };
 }
 
 function makeMove(state: GameState, moveSan: string) {
@@ -29,16 +29,16 @@ function makeMove(state: GameState, moveSan: string) {
   return { 
     ...state, 
     fen: chess.fen(), 
-    currentTurn: getNextTurn(chess, state),
+    activePlayer: getNextTurn(chess, state),
     isGameOver: chess.isGameOver()
   };
 }
 
 function getNextTurn(chess: Chess, state: GameState) {
-  const { currentTurn, whiteBot, blackBot } = state;
+  const { activePlayer, whiteBot, blackBot } = state;
   return chess.isGameOver() 
-    ? currentTurn
-    : currentTurn?.colour === "White" ? blackBot : whiteBot;
+    ? activePlayer
+    : activePlayer?.colour === "White" ? blackBot : whiteBot;
 }
 
 export default reducer;
