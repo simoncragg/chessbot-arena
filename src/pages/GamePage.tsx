@@ -14,7 +14,7 @@ const GamePage = () => {
 
   useEffect(() => {
 
-    const nextMove = async () => {
+    const makeNextMove = async () => {
       const response = await fetch(activePlayer!.url!, {
         method: "POST",
         headers: { "Content-type": "application/json" },
@@ -28,7 +28,7 @@ const GamePage = () => {
     };
     
     if (activePlayer) {
-      setTimeout(() => nextMove(), getRandomInt(500, 3000));
+      setTimeout(() => makeNextMove(), getRandomInt(500, 3000));
     }
 
   }, [dispatch, fen, activePlayer]);
