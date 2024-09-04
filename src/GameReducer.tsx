@@ -36,7 +36,8 @@ function makeMove(state: GameState, moveSan: string) {
     ...state, 
     fen: chess.fen(), 
     activePlayer: getNextTurn(chess, state),
-    isGameOver: chess.isGameOver()
+    isGameOver: chess.isGameOver(),
+    isDraw: chess.isDraw()
   };
 }
 
