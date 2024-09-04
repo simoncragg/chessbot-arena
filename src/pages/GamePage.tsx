@@ -45,6 +45,10 @@ const GamePage = () => {
               <span className="text-4xl">{activePlayer!.name} wins!</span>
             )}
 
+            {isGameOver && isDraw && (
+              <span className="text-4xl">Draw!</span>
+            )}
+
         </div>
       </div>
     </div>
