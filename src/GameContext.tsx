@@ -18,6 +18,7 @@ const initialState: GameState = {
   whiteBot:  { colour: "White" },
   blackBot: { colour: "Black" },
   fen: undefined,
+  moveHistory: [],
   activePlayer: undefined,
   isGameOver: false,
   isDraw: false,
