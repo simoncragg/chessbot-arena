@@ -23,7 +23,6 @@ const GamePage = () => {
 
       const result = await response.json();
       const { move } = result;
-      console.log("nextMove", activePlayer!.colour, move);
       dispatch({ type: "MAKE_MOVE", payload: move });
     };
     
