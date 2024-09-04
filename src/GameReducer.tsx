@@ -21,24 +21,32 @@ function initGame(state: GameState) {
   return { 
     ...state, 
     fen: chess.fen(),
+    moveHistory: [],
     activePlayer: state.whiteBot,
     isGameOver: false,
     isDraw: false,
   };
 }
 
-function makeMove(state: GameState, moveSan: string) {
-  const { fen } = state;
-  const chess = new Chess(fen);
-  chess.move(moveSan);
+function makeMove(state: GameState, move: string) {
+  const chess = initChessObject(state.moveHistory);
+  chess.move(move);
+  console.log(`${state.activePlayer!.colour} move: ${move}`);
 
   return { 
-    ...state, 
-    fen: chess.fen(), 
+    ...state,
+    fen: chess.fen(),
+    moveHistory: [... state.moveHistory, move],
     activePlayer: getNextTurn(chess, state),
     isGameOver: chess.isGameOver(),
-    isDraw: chess.isDraw()
+    isDraw: chess.isDraw(),
   };
+}
+
+function initChessObject(moveHistory: string[]): Chess {
+  const chess = new Chess();
+  moveHistory.forEach(move => chess.move(move));
+  return chess;
 }
 
 function getNextTurn(chess: Chess, state: GameState) {

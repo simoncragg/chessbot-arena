@@ -10,6 +10,7 @@ export type GameState = {
   whiteBot: ChessBot;
   blackBot: ChessBot;
   fen: string | undefined;
+  moveHistory: string[];
   activePlayer: ChessBot | undefined;
   isGameOver: boolean;
   isDraw: boolean;
