@@ -1,6 +1,8 @@
 import { useEffect } from "react";
+
+import getNextMove from "../services/getNextMove";
 import { Chessboard } from "react-chessboard";
-import { makeNextMove, getRandomInt } from "../utils";
+import { getRandomInt } from "../utils";
 import { useGame } from "../GameContext";
 
 const GamePage = () => {
@@ -17,7 +19,7 @@ const GamePage = () => {
     const botId = activePlayer.botId;
     if (botId && !isGameOver) {
       setTimeout(() => {
-        makeNextMove({fen, botId}, (move: string) => {
+        getNextMove({fen, botId}, (move: string) => {
           dispatch({ type: "MAKE_MOVE", payload: move });
         });
       }, getRandomInt(500, 3000));
