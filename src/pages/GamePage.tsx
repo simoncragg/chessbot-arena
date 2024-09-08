@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 import getNextMove from "../services/getNextMove";
 import { Chessboard } from "react-chessboard";
@@ -10,6 +10,8 @@ const GamePage = () => {
   const { state, dispatch } = useGame();
   const { fen, activePlayer, isGameOver, isDraw } = state;
 
+  const isFirstMoveRef = useRef<boolean>(true);
+
   useEffect(() => {
     dispatch({ type: "START_GAME" });
   }, [dispatch]);
@@ -18,11 +20,18 @@ const GamePage = () => {
 
     const botId = activePlayer.botId;
     if (botId && !isGameOver) {
+      
+      const delayMs = isFirstMoveRef.current
+        ? 0 
+        : getRandomInt(500, 3000);
+
+      isFirstMoveRef.current = false;
+
       setTimeout(() => {
         getNextMove({fen, botId}, (move: string) => {
           dispatch({ type: "MAKE_MOVE", payload: move });
         });
-      }, getRandomInt(500, 3000));
+      }, delayMs);
     }
 
   }, [fen, activePlayer, isGameOver, dispatch]);
