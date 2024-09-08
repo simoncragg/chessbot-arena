@@ -10,7 +10,7 @@ const botMove = async (request: Request) => {
     }
 
     const body = await request.text();
-    const { fen } = JSON.parse(body);
+    const { botId, fen } = JSON.parse(body);
 
     if (!fen) {
       return buildResponse({ message: "Bad Request: Missing FEN notation" }, 400);
@@ -21,7 +21,8 @@ const botMove = async (request: Request) => {
       return buildResponse({ message: "Bad Request: Invalid FEN notation" }, 400);
     }
 
-    const move = await getBestMove(fen);
+    const depth = getBotDepth(botId);
+    const move = await getBestMove(fen, depth);
 
     return buildResponse({ move }, 200);
 
@@ -37,8 +38,19 @@ function buildResponse(body: Record<string, unknown>, status: number) {
   return new Response(JSON.stringify(body), { status });
 }
 
-async function getBestMove(fen: string) {
-  const response = await fetch(`https://stockfish.online/api/s/v2.php?fen=${fen}&depth=1`, {
+function getBotDepth(botId: string): number {
+  switch (botId) {
+    case "1": return 2;
+    case "2": return 5;
+    case "3": return 8;
+    case "4": return 12;
+    case "5": return 15;
+    default: return 2;
+  }
+}
+
+async function getBestMove(fen: string, depth: number) {
+  const response = await fetch(`https://stockfish.online/api/s/v2.php?fen=${fen}&depth=${depth}`, {
     method: "GET",
     headers: { "Content-type": "application/json" },
   });

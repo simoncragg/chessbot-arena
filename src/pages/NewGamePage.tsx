@@ -1,11 +1,11 @@
-import type { ChessBot } from "../types";
+import type { Player } from "../types";
 
 import { Chessboard } from 'react-chessboard'
 import { FaEdit } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
 
-import ChessBotCard from '../components/ChessBotCard';
+import PlayerForm from '../components/PlayerForm';
 import { useGame } from "../GameContext";
 
 const NewGamePage = () => {
@@ -14,36 +14,36 @@ const NewGamePage = () => {
   const { dispatch } = useGame();
 
   const [step, setStep] = useState<number>(1);
-  const [whiteBot, setWhiteBot] = useState<ChessBot>({ colour: "White" });
-  const [blackBot, setBlackBot] = useState<ChessBot>({ colour: "Black" });
+  const [white, setwhite] = useState<Player>({ colour: "White", playerType: "Bot", name: "" });
+  const [black, setblack] = useState<Player>({ colour: "Black", playerType: "Bot", name: "" });
 
-  const updateState = (chessBot: ChessBot) => {
+  const updateState = (player: Player) => {
     if (step === 1) {
-      setWhiteBot(chessBot);
+      setwhite(player);
       setStep(2);
     } else {
-      setBlackBot(chessBot);
+      setblack(player);
       setStep(3);
     }
   };
 
   const startGame = () => {
-    dispatch({ type: "SET_WHITE_BOT", payload: whiteBot});
-    dispatch({ type: "SET_BLACK_BOT", payload: blackBot});
+    dispatch({ type: "SET_WHITE_PLAYER", payload: white });
+    dispatch({ type: "SET_BLACK_PLAYER", payload: black });
     navigate("/game");
   }
 
   return (
-    <div className="flex flex-col items-center gap-8">
+    <div className="flex flex-col items-center">
 
-      <div className="flex flex-col md:flex-row gap-8 w-full">
+      <div className="flex flex-col md:flex-row gap-4 w-full">
 
         {step === 1 && (
-          <ChessBotCard chessBot={whiteBot} submitText="Next" onSubmit={updateState} />
+          <PlayerForm player={white} submitText="Next" onSubmit={updateState} />
         )}
 
         {step === 2 && (
-          <ChessBotCard chessBot={blackBot} submitText="Next" onSubmit={updateState} />
+          <PlayerForm player={black} submitText="Next" onSubmit={updateState} />
         )}
 
       </div>
@@ -51,9 +51,9 @@ const NewGamePage = () => {
       {step === 3 && (
         <div className="flex flex-col w-96 gap-4 items-center">
 
-          <EditChessBotButton name={blackBot.name ?? ""} onClick={() => setStep(2)} />
+          <EditPlayerButton name={black.name ?? ""} onClick={() => setStep(2)} />
           <Chessboard id="defaultBoard" />
-          <EditChessBotButton name={whiteBot.name ?? ""} onClick={() => setStep(1)} />
+          <EditPlayerButton name={white.name ?? ""} onClick={() => setStep(1)} />
 
           <button 
             type="button" 
@@ -69,12 +69,12 @@ const NewGamePage = () => {
   );
 }
 
-interface EditChessBotButtonProps {
+interface EditPlayerButtonProps {
   name: string,
   onClick: () => void
 }
 
-const EditChessBotButton: React.FC<EditChessBotButtonProps> = ({ name, onClick }) => {
+const EditPlayerButton: React.FC<EditPlayerButtonProps> = ({ name, onClick }) => {
   return (
     <button 
       type="button" 

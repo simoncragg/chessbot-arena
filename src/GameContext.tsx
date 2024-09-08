@@ -1,6 +1,7 @@
-import type { Action, GameState } from "./types";
-
+import type { Action, GameState, Player } from "./types";
 import React, { createContext, useContext, useReducer } from "react";
+import { Chess } from "chess.js";
+
 import reducer from "./GameReducer";
 
 type GameContextType = {
@@ -14,12 +15,15 @@ type GameContextProviderType = {
 
 const GameContext = createContext({} as GameContextType);
 
+const white: Player = { colour: "White", playerType: "Bot", name: "" };
+const black: Player = { colour: "Black", playerType: "Bot", name: "" };
+
 const initialState: GameState = {
-  whiteBot:  { colour: "White" },
-  blackBot: { colour: "Black" },
-  fen: undefined,
+  white,
+  black,
+  fen: new Chess().fen(),
   moveHistory: [],
-  activePlayer: undefined,
+  activePlayer: white,
   isGameOver: false,
   isDraw: false,
 };
