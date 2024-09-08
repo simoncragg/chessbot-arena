@@ -1,10 +1,13 @@
 import type { ChessBot, Player, PlayerType } from "../types";
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FaRobot, FaUser } from "react-icons/fa";
 import { GiPawn } from "react-icons/gi";
+
 import ChessBotSelector from "../components/ChessBotSelector";
+import getBots from "../services/getBots";
 import { isValidPlayer } from "../utils";
+
 
 interface PlayerFormProps {
 	player: Player;
@@ -14,30 +17,35 @@ interface PlayerFormProps {
 
 const PlayerForm: React.FC<PlayerFormProps> = ({ player, submitText, onSubmit }) => {
 
-  const chessBots = [
-    { id: "1", name: "Mild Mildred", elo: 700 },
-    { id: "2", name: "Savvy Sammy", elo: 1000 },
-    { id: "3", name: "Keen Jean", elo: 1600 },
-    { id: "4", name: "Elite Pete", elo: 2100 },
-    { id: "5", name: "Grandmaster Jasper", elo: 2450 },
-  ];
-
-  const selectedBot = chessBots.find(bot => bot.id === player.botId);
-
+  const [chessBots, setChessBots] = useState<ChessBot[]>([]);
   const [playerType, setPlayerType] = useState<PlayerType>(player.playerType ?? "Bot");
-  const [chessBot, setChessBot] = useState<ChessBot | undefined>(selectedBot);
+  const [selectedBot, setSelectedBot] = useState<ChessBot | undefined>();
 
+  const botLoadAttemptedRef = useRef<boolean>(false);
   const nameRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!botLoadAttemptedRef.current) {
+      botLoadAttemptedRef.current = true;
+      getBots((chessBots: ChessBot[]) => {
+        setChessBots(chessBots);
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    setSelectedBot(chessBots.find(bot => bot.id === player.botId));
+  }, [chessBots, player]);
 
   const handleSubmit = () => {      
       const updatedPlayer: Player = {
         colour: player.colour,
         playerType: playerType,
-        botId: chessBot?.id,
+        botId: selectedBot?.id,
         name: (
           playerType === "Human" 
             ? nameRef.current?.value
-            : chessBot?.name
+            : selectedBot?.name
           ) ?? "",
       };
 
@@ -92,7 +100,7 @@ const PlayerForm: React.FC<PlayerFormProps> = ({ player, submitText, onSubmit })
             <ChessBotSelector 
               chessBots={chessBots} 
               selectedBot={selectedBot} 
-              onChessBotSelected={chessBot => setChessBot(chessBot)}
+              onChessBotSelected={chessBot => setSelectedBot(chessBot)}
             />
           )}
 
