@@ -26,6 +26,7 @@ const initialState: GameState = {
   activePlayer: white,
   isGameOver: false,
   isDraw: false,
+  chessBots: []
 };
 
 export const GameContextProvider = ({ children }: GameContextProviderType) => {

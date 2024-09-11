@@ -17,6 +17,7 @@ export type GameState = {
   activePlayer: Player;
   isGameOver: boolean;
   isDraw: boolean;
+  chessBots: ChessBot[];
 };
 
 export type ChessBot = {
@@ -25,7 +26,8 @@ export type ChessBot = {
   elo: number;
 };
 
-export type Action = { type: "SET_WHITE_PLAYER"; payload: Player; }
+export type Action = { type: "SET_CHESSBOTS", payload: ChessBot[]; }
+  | { type: "SET_WHITE_PLAYER"; payload: Player; }
   | { type: "SET_BLACK_PLAYER"; payload: Player; }
   | { type: "START_GAME"; }
   | { type: "MAKE_MOVE"; payload: string };

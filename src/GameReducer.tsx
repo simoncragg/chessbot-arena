@@ -1,26 +1,39 @@
-import type { Action, GameState, Player } from "./types";
+import type { Action, ChessBot, GameState, Player } from "./types";
 import { Chess } from "chess.js";
 
 const reducer = (state: GameState, action: Action): GameState => {
+  
   switch (action.type) {
+
+    case "SET_CHESSBOTS":
+      return setChessBots(state, action.payload);
+
     case "SET_WHITE_PLAYER":
-      return setwhite(state, action.payload);
+      return setWhite(state, action.payload);
+
     case "SET_BLACK_PLAYER":
-      return setblack(state, action.payload);
+      return setBlack(state, action.payload);
+
     case "START_GAME":
       return startGame(state);
+
     case "MAKE_MOVE":
       return makeMove(state, action.payload);
+
     default:
       return state;
   }
 };
 
-function setwhite(state: GameState, payload: Player) {
+function setChessBots(state: GameState, payload: ChessBot[]) {
+  return { ...state, chessBots: payload };
+}
+
+function setWhite(state: GameState, payload: Player) {
   return { ...state, white: payload };
 }
 
-function setblack(state: GameState, payload: Player) {
+function setBlack(state: GameState, payload: Player) {
   return { ...state, black: payload };
 }
 

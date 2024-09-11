@@ -1,4 +1,5 @@
 import type { ChessBot } from "../types";
+
 import React from "react";
 import OptionSelector from "./OptionSelector";
 
@@ -10,10 +11,13 @@ interface ChessBotSelectorProps {
 
 const ChessBotSelector: React.FC<ChessBotSelectorProps> = ({ chessBots, selectedBot, onChessBotSelected }) => {
 
-  const renderChessBot = (bot: ChessBot) => (
-    <div className="flex flex-col items-start">
-      <span>{bot.name}</span>
-      <span className="text-gray-400 text-xs">{bot.elo} elo</span>
+  const renderBot = (bot: ChessBot) => (
+    <div className="flex flex-row items-start gap-2">
+      <img src={`/avatars/${bot.id}-min.jpg`} alt={`${bot.name} avatar`} width="50" />
+      <div className="flex flex-col items-start">
+        <span className="text-lg font-normal">{bot.name}</span>
+        <span className="text-sm font-light">{bot.elo} elo</span>
+      </div>
     </div>
   );
 
@@ -21,7 +25,7 @@ const ChessBotSelector: React.FC<ChessBotSelectorProps> = ({ chessBots, selected
     <OptionSelector
 			prompt="Select a Chess Bot"
 			options={chessBots}
-      renderOption={renderChessBot}
+      renderOption={renderBot}
       selectedOption={selectedBot}
       onOptionSelected={option => onChessBotSelected(option)}
     />
