@@ -79,6 +79,11 @@ function initChessObject(moveHistory: string[]): Chess {
 
 function getActivePlayer(chess: Chess, state: GameState) {
   const { white, black } = state;
+  
+  if (chess.isGameOver()) {
+    return { ...state.activePlayer };
+  }
+
   return chess.turn() === "w"
     ? { ...white }
     : { ...black };
