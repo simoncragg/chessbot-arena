@@ -28,8 +28,8 @@ const NewGamePage = () => {
   };
 
   const startGame = () => {
-    dispatch({ type: "SET_WHITE_PLAYER", payload: white });
-    dispatch({ type: "SET_BLACK_PLAYER", payload: black });
+    dispatch({ type: "SET_WHITE", payload: white });
+    dispatch({ type: "SET_BLACK", payload: black });
     navigate("/game");
   }
 

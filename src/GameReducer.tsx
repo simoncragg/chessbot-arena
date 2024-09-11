@@ -8,10 +8,10 @@ const reducer = (state: GameState, action: Action): GameState => {
     case "SET_CHESSBOTS":
       return setChessBots(state, action.payload);
 
-    case "SET_WHITE_PLAYER":
+    case "SET_WHITE":
       return setWhite(state, action.payload);
 
-    case "SET_BLACK_PLAYER":
+    case "SET_BLACK":
       return setBlack(state, action.payload);
 
     case "START_GAME":
