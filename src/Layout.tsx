@@ -13,7 +13,7 @@ const Layout = () => {
         </Link>
       </header>
 
-      <div className="my-8">
+      <div className="mt-4 md: mt-8">
         {outlet}
       </div>
     </div>
