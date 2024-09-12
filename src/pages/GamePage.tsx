@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Chessboard } from "react-chessboard";
 
-import PlayerReviewBar from "../components/PlayerReviewBar";
+import PlayerReviewBar from "../components/PlayerStatusBar";
 import getNextMove from "../services/getNextMove";
 import { getRandomInt } from "../utils";
 import { useGame } from "../GameContext";
