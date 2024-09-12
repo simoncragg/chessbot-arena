@@ -16,15 +16,22 @@ const NewGamePage = () => {
   const [step, setStep] = useState<number>(1);
   const [white, setwhite] = useState<Player>({ colour: "White", playerType: "Bot", name: "" });
   const [black, setblack] = useState<Player>({ colour: "Black", playerType: "Bot", name: "" });
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
+
+  const editStep = (step: number) => {
+    setIsEditMode(true);
+    setStep(step);
+  };
 
   const updateState = (player: Player) => {
     if (step === 1) {
       setwhite(player);
-      setStep(2);
+      setStep(isEditMode ? 3 : 2);
     } else {
       setblack(player);
       setStep(3);
     }
+    setIsEditMode(false);
   };
 
   const startGame = () => {
@@ -38,22 +45,25 @@ const NewGamePage = () => {
 
       <div className="flex flex-col md:flex-row gap-2 w-full">
 
-        {step === 1 && (
-          <PlayerForm player={white} submitText="Next" onSubmit={updateState} />
-        )}
-
-        {step === 2 && (
-          <PlayerForm player={black} submitText="Next" onSubmit={updateState} />
-        )}
+        {[white, black].map((p, i) => (
+          step === i+1 && (
+            <PlayerForm 
+              key={`playerForm-${i+1}`}
+              player={p} 
+              submitText={isEditMode ? "Update" : "Next"} 
+              onSubmit={updateState} 
+            />
+          )
+        ))}
 
       </div>
 
       {step === 3 && (
         <div className="flex flex-col w-96 gap-2 items-start">
 
-          <PlayerReviewBar player={black} onClick={() => setStep(2)} />
+          <PlayerReviewBar player={black} onClick={() => editStep(2)} />
           <Chessboard isDraggablePiece={() => false} />
-          <PlayerReviewBar player={white} onClick={() => setStep(1)} />
+          <PlayerReviewBar player={white} onClick={() => editStep(1)} />
 
           <button 
             type="button" 
