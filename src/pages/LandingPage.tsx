@@ -6,7 +6,7 @@ const LandingPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col items-center w-full bg-neutral-900 gap-8 md:mt-4">
+    <div className="flex flex-col items-center w-full bg-neutral-900 gap-8 mt-4 md:mt-4">
 
       <div className="flex justify-center bg-neutral-900 w-full">
 
