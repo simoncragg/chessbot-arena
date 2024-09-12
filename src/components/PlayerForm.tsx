@@ -41,21 +41,31 @@ const PlayerForm: React.FC<PlayerFormProps> = ({ player, submitText, onSubmit })
   }, [chessBots, player.botId]);
 
   const handleSubmit = () => {      
-      const updatedPlayer: Player = {
-        colour: player.colour,
-        playerType: playerType,
-        botId: selectedBot?.id,
-        name: (
-          playerType === "Human" 
-            ? nameRef.current?.value
-            : selectedBot?.name
-          ) ?? "",
-      };
-
-      if (isValidPlayer(updatedPlayer)) {
-        onSubmit(updatedPlayer);
+      const player = createPlayer();
+      if (isValidPlayer(player)) {
+        onSubmit(player);
       }
   };
+
+  const createPlayer = (): Player => {
+    const newPlayer: Player = {
+      colour: player.colour,
+      playerType: playerType,
+      name: ""
+    };
+
+    return (playerType === "Human")
+      ? {
+          ...newPlayer,
+          name: nameRef.current?.value ?? ""
+        }
+      : {
+          ...newPlayer,
+          name: selectedBot?.name ?? "",
+          botId: selectedBot?.id,
+          elo: selectedBot?.elo
+      };
+  }
 
   const pawnTextColour = player.colour === "White" ? "text-white" : "text-black";
   const pawnBgColour = player.colour === "White" ? "bg-black" : "bg-white";

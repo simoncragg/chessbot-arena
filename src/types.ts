@@ -7,6 +7,7 @@ export type Player = {
   playerType: PlayerType;
   name: string;
   botId?: string;
+  elo?: number;
 };
 
 export type GameState = {
