@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
 
 import PlayerForm from '../components/PlayerForm';
-import PlayerReviewBar from "../components/PlayerStatusBar";
+import PlayerStatusBar from "../components/PlayerStatusBar";
 import { useGame } from "../GameContext";
 
 const NewGamePage = () => {
@@ -61,9 +61,9 @@ const NewGamePage = () => {
       {step === 3 && (
         <div className="flex flex-col w-96 gap-2 items-start">
 
-          <PlayerReviewBar player={black} onClick={() => editStep(2)} />
+          <PlayerStatusBar player={black} onClick={() => editStep(2)} />
           <Chessboard isDraggablePiece={() => false} />
-          <PlayerReviewBar player={white} onClick={() => editStep(1)} />
+          <PlayerStatusBar player={white} onClick={() => editStep(1)} />
 
           <button 
             type="button" 

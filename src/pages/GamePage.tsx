@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Chessboard } from "react-chessboard";
 
-import PlayerReviewBar from "../components/PlayerStatusBar";
+import PlayerStatusBar from "../components/PlayerStatusBar";
 import getNextMove from "../services/getNextMove";
 import { getRandomInt } from "../utils";
 import { useGame } from "../GameContext";
@@ -48,9 +48,9 @@ const GamePage = () => {
     <div className="flex flex-col items-center w-full bg-neutral-900">
       <div className="flex justify-center bg-neutral-900 w-full">
         <div className="flex flex-col w-96 gap-4 items-center">
-          <PlayerReviewBar player={black} />
+          <PlayerStatusBar player={black} />
           <Chessboard position={fen} isDraggablePiece={() => false} />
-          <PlayerReviewBar player={white} />
+          <PlayerStatusBar player={white} />
           
             {isGameOver && !isDraw && (
               <span className="text-2xl">{activePlayer.name} wins!</span>

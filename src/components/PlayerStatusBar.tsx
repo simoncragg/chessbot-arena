@@ -3,12 +3,12 @@ import type { Player} from "../types";
 import React from "react";
 import { FaEdit } from "react-icons/fa";
 
-interface PlayerReviewBarProps {
+interface PlayerStatusBarProps {
   player: Player,
   onClick?: () => void
 }
 
-const PlayerReviewBar: React.FC<PlayerReviewBarProps> = ({ player, onClick }) => {
+const PlayerStatusBar: React.FC<PlayerStatusBarProps> = ({ player, onClick }) => {
 
   return (
       <div className="flex flex-row items-start justify-between gap-1 w-full">
@@ -39,4 +39,4 @@ const PlayerReviewBar: React.FC<PlayerReviewBarProps> = ({ player, onClick }) =>
   );
 }
 
-export default PlayerReviewBar;
+export default PlayerStatusBar;
