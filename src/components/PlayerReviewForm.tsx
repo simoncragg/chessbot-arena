@@ -5,7 +5,7 @@ import { FaEdit } from "react-icons/fa";
 
 interface PlayerReviewBarProps {
   player: Player,
-  onClick: () => void
+  onClick?: () => void
 }
 
 const PlayerReviewBar: React.FC<PlayerReviewBarProps> = ({ player, onClick }) => {
@@ -22,16 +22,19 @@ const PlayerReviewBar: React.FC<PlayerReviewBarProps> = ({ player, onClick }) =>
             )}
           </div>
         </div>
-
-        <div className="bg-neutral-800">
-          <button 
-            type="button" 
-            className="p-3"
-            onClick={onClick}
-          >
-            <FaEdit className="w-6 h-6 ml-1" />
-          </button>
-        </div>
+        
+        {onClick && (
+          <div className="bg-neutral-800">
+            <button 
+              type="button" 
+              className="p-3"
+              onClick={onClick}
+            >
+              <FaEdit className="w-6 h-6 ml-1" />
+            </button>
+          </div>
+        )}
+        
       </div>
   );
 }

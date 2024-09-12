@@ -1,14 +1,22 @@
 import { useEffect, useRef } from "react";
-
-import getNextMove from "../services/getNextMove";
 import { Chessboard } from "react-chessboard";
+
+import PlayerReviewBar from "../components/PlayerReviewForm";
+import getNextMove from "../services/getNextMove";
 import { getRandomInt } from "../utils";
 import { useGame } from "../GameContext";
 
 const GamePage = () => {
 
   const { state, dispatch } = useGame();
-  const { fen, activePlayer, isGameOver, isDraw } = state;
+  const {
+    white,
+    black, 
+    fen, 
+    activePlayer, 
+    isGameOver, 
+    isDraw 
+  } = state;
 
   const isFirstMoveRef = useRef<boolean>(true);
 
@@ -37,12 +45,12 @@ const GamePage = () => {
   }, [fen, activePlayer, isGameOver, dispatch]);
 
   return (
-    <div className="flex flex-col items-center w-full bg-neutral-900 gap-4">
+    <div className="flex flex-col items-center w-full bg-neutral-900">
       <div className="flex justify-center bg-neutral-900 w-full">
         <div className="flex flex-col w-96 gap-4 items-center">
-          <span className="text-xl">{ state.black.name }</span>
+          <PlayerReviewBar player={black} />
           <Chessboard position={fen} isDraggablePiece={() => false} />
-          <span className="text-xl items-center">{ state.white.name }</span>
+          <PlayerReviewBar player={white} />
           
             {isGameOver && !isDraw && (
               <span className="text-2xl">{activePlayer.name} wins!</span>
