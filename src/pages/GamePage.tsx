@@ -41,7 +41,7 @@ const GamePage = () => {
       <div className="flex justify-center bg-neutral-900 w-full">
         <div className="flex flex-col w-96 gap-4 items-center">
           <span className="text-xl">{ state.black.name }</span>
-          <Chessboard position={fen} />
+          <Chessboard position={fen} isDraggablePiece={() => false} />
           <span className="text-xl items-center">{ state.white.name }</span>
           
             {isGameOver && !isDraw && (

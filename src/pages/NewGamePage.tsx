@@ -52,7 +52,7 @@ const NewGamePage = () => {
         <div className="flex flex-col w-96 gap-2 items-start">
 
           <PlayerReviewBar player={black} onClick={() => setStep(2)} />
-          <Chessboard id="defaultBoard" />
+          <Chessboard isDraggablePiece={() => false} />
           <PlayerReviewBar player={white} onClick={() => setStep(1)} />
 
           <button 
