@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
 
 import PlayerForm from '../components/PlayerForm';
-import PlayerReviewBar from "../components/PlayerReviewForm";
+import PlayerReviewBar from "../components/PlayerReviewBar";
 import { useGame } from "../GameContext";
 
 const NewGamePage = () => {
