@@ -61,7 +61,7 @@ const OptionSelector = <T,>({ prompt, options, renderOption, selectedOption, onO
     <div className="relative inline-block text-left" ref={selectorRef}>
       <button
         type="button"
-        className="inline-flex gap-2 w-full justify-between rounded-md border border-white bg-neutral-800 px-4 py-2 text-sm font-medium text-gray-200 shadow-sm ring-1 ring-gray-600 hover:bg-neutral-700 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+        className="inline-flex gap-2 w-full items-center justify-between rounded-md border border-white bg-neutral-700 px-3 py-2 text-sm font-medium text-gray-200 min-h-[46px] shadow-sm ring-1 ring-gray-600 hover:bg-neutral-700 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
         id="menu-button"
         aria-expanded={isOpen}
         aria-haspopup="true"
