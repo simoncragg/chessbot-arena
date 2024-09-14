@@ -1,4 +1,4 @@
-import type { Action, ChessBot, GameState, Player } from "./types";
+import type { Action, ChessBot, DrawReasonType, GameState, Player } from "./types";
 import { Chess } from "chess.js";
 
 const reducer = (state: GameState, action: Action): GameState => {
@@ -16,6 +16,8 @@ const reducer = (state: GameState, action: Action): GameState => {
 
     case "START_GAME":
       return startGame(state);
+      //return gameOver(startGame(state));
+      //return draw(startGame(state));
 
     case "MAKE_MOVE":
       return makeMove(state, action.payload);
@@ -50,6 +52,24 @@ function startGame(state: GameState) {
   };
 }
 
+// function gameOver(state: GameState) {
+//   return { 
+//     ...state,
+//     isGameOver: true,
+//     activePlayer: state.white,
+//   };
+// }
+
+// function draw(state: GameState) {
+//   return { 
+//     ...state,
+//     isGameOver: true,
+//     isDraw: true,
+//     drawReason: "Stalemate",
+//     activePlayer: state.white,
+//   };
+// }
+
 function makeMove(state: GameState, move: string) {
 
   const chess = initChessObject(state.moveHistory);
@@ -68,6 +88,7 @@ function makeMove(state: GameState, move: string) {
     activePlayer: getActivePlayer(chess, state),
     isGameOver: chess.isGameOver(),
     isDraw: chess.isDraw(),
+    drawReason: mapToDrawReason(chess)
   };
 }
 
@@ -87,6 +108,26 @@ function getActivePlayer(chess: Chess, state: GameState) {
   return chess.turn() === "w"
     ? { ...white }
     : { ...black };
+}
+
+function mapToDrawReason(chess: Chess): DrawReasonType | undefined {
+  if (!chess.isDraw)  {
+    return undefined;
+  }
+
+  if (chess.isStalemate()) {
+    return "Stalemate";
+  }
+
+  if (chess.isThreefoldRepetition()) {
+    return "Threefold Repetition";
+  }
+
+  if (chess.isInsufficientMaterial()) {
+    return "Insufficient Material";
+  }
+
+  return "50 Move Rule";
 }
 
 export default reducer;

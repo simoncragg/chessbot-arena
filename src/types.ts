@@ -1,6 +1,7 @@
 export type ChessColour = "White" | "Black";
 export type PlayerType = "Bot" | "Human";
 export type BotType = "Custom" | "Resident";
+export type DrawReasonType = "Stalemate" | "Threefold Repetition" | "Insufficient Material" | "50 Move Rule";
 
 export type Player = {
   colour: ChessColour;
@@ -18,6 +19,7 @@ export type GameState = {
   activePlayer: Player;
   isGameOver: boolean;
   isDraw: boolean;
+  drawReason?: DrawReasonType;
   chessBots: ChessBot[];
 };
 
