@@ -19,6 +19,9 @@ const reducer = (state: GameState, action: Action): GameState => {
       //return gameOver(startGame(state));
       //return draw(startGame(state));
 
+    case "RESET_GAME":
+      return resetGame(state);
+
     case "MAKE_MOVE":
       return makeMove(state, action.payload);
 
@@ -37,6 +40,23 @@ function setWhite(state: GameState, payload: Player) {
 
 function setBlack(state: GameState, payload: Player) {
   return { ...state, black: payload };
+}
+
+function resetGame(state: GameState) {
+  const chess = new Chess();
+  const white: Player = { colour: "White", playerType: "Bot", name: "" };
+  const black: Player = { colour: "Black", playerType: "Bot", name: "" };
+
+  return { 
+    ...state,
+    fen: chess.fen(),
+    white,
+    black,
+    moveHistory: [],
+    activePlayer: { ...state.white },
+    isGameOver: false,
+    isDraw: false,
+  };
 }
 
 function startGame(state: GameState) {

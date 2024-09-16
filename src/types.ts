@@ -32,5 +32,6 @@ export type ChessBot = {
 export type Action = { type: "SET_CHESSBOTS", payload: ChessBot[]; }
   | { type: "SET_WHITE"; payload: Player; }
   | { type: "SET_BLACK"; payload: Player; }
+  | { type: "RESET_GAME" }
   | { type: "START_GAME"; }
   | { type: "MAKE_MOVE"; payload: string };

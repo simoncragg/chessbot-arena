@@ -1,14 +1,15 @@
 import type { Player } from "../types";
 
-import { Chessboard } from 'react-chessboard'
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { Chessboard } from "react-chessboard";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-import PlayerForm from '../components/PlayerForm';
+import PlayerForm from "../components/PlayerForm";
 import PlayerStatusBar from "../components/PlayerStatusBar";
 import { useGame } from "../GameContext";
 
-const NewGamePage = () => {
+const NewGamePage: React.FC = () => {
   
   const navigate = useNavigate();
   const { dispatch } = useGame();
@@ -17,6 +18,10 @@ const NewGamePage = () => {
   const [white, setwhite] = useState<Player>({ colour: "White", playerType: "Bot", name: "" });
   const [black, setblack] = useState<Player>({ colour: "Black", playerType: "Bot", name: "" });
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
+
+  useEffect(() => {
+    dispatch({ type: "RESET_GAME"});
+  }, [dispatch]);
 
   const editStep = (step: number) => {
     setIsEditMode(true);
