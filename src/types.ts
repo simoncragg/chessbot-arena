@@ -35,3 +35,7 @@ export type Action = { type: "SET_CHESSBOTS", payload: ChessBot[]; }
   | { type: "RESET_GAME" }
   | { type: "START_GAME"; }
   | { type: "MAKE_MOVE"; payload: string };
+
+export interface MoveResponse {
+  move: string | null;
+}
