@@ -1,7 +1,8 @@
+import { ChessBot } from "../../src/types";
 
-const getBots = async () => {
+const getBots = async (): Promise<Response> => {
 
-  const chessBots = [
+  const chessBots: ChessBot[] = [
     { id: "1425583c-b8de-4551-aa44-1f259f83f3d1", name: "Mild Mildred", elo: 700 },
     { id: "224e86a1-6898-4389-9de2-edf5fe0a1715", name: "Savvy Sammy", elo: 1000 },
     { id: "3afc6505-f882-453e-b81e-0f52d2b37c03", name: "Keen Jean", elo: 1600 },
