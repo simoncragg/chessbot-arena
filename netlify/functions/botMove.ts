@@ -1,7 +1,7 @@
 import type { MoveResponse } from "../../src/types";
 
 import botMoveHandler from "../utils/botMoveHandler";
-import getBestMove from "../stockfish-proxies/chess-api";
+import getBestMove from "../stockfish-proxies/stockfish-online";
 
 const botMove = async (request: Request) => {
 
