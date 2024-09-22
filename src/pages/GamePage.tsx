@@ -45,7 +45,7 @@ const GamePage: React.FC = () => {
 
   useEffect(() => {
     if (isGameOver) {
-      setIsGameOverModalOpen(true);
+      setTimeout(() => setIsGameOverModalOpen(true), 1000);
     }
   }, [isGameOver]);
 
