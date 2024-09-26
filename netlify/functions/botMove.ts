@@ -2,10 +2,17 @@ import type { MoveResponse } from "../../src/types";
 
 import botMoveHandler from "../utils/botMoveHandler";
 import getBestMove from "../stockfish-proxies/stockfish-online";
+import Alphabot from "../alphabot/Alphabot";
+import isAlphabot from "../alphabot/isAlphabot";
 
 const botMove = async (request: Request) => {
 
   return botMoveHandler(request, async (botId: string, fen: string): Promise<MoveResponse> => {
+    
+    if (isAlphabot(botId)) {
+      return new Alphabot(fen, 3).getBestMove();
+    }
+    
     const depth = getBotDepth(botId);
     return await getBestMove(fen, depth);
   });

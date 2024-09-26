@@ -28,12 +28,8 @@ const GamePage: React.FC = () => {
   useEffect(() => {
     const botId = activePlayer.botId;
     if (botId && !isGameOver) {
-      const delayMs = isFirstMoveRef.current
-        ? 0 
-        : getRandomInt(500, 3000);
-
+      const delayMs = getDelay(botId);
       isFirstMoveRef.current = false;
-
       setTimeout(() => {
         getNextMove({fen, botId}, (move: string) => {
           dispatch({ type: "MAKE_MOVE", payload: move });
@@ -48,6 +44,16 @@ const GamePage: React.FC = () => {
       setTimeout(() => setIsGameOverModalOpen(true), 1000);
     }
   }, [isGameOver]);
+
+  const getDelay = (botId: string) => {
+    return isFirstMoveRef.current || isAlphabot(botId)
+      ? 0
+      : getRandomInt(500, 3000);
+  }
+
+  const isAlphabot = (botId: string): boolean => {
+    return botId === "ae55ae42-8c32-4605-93ae-399b013dc8ca";
+  };
 
    return (
     <div className="flex flex-col items-center w-full bg-neutral-900">
