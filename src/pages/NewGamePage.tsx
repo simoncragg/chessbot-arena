@@ -66,9 +66,9 @@ const NewGamePage: React.FC = () => {
       {step === 3 && (
         <div className="flex flex-col w-96 gap-2 items-start">
 
-          <PlayerStatusBar player={black} onClick={() => editStep(2)} />
+          <PlayerStatusBar player={black} onEditClick={() => editStep(2)} />
           <Chessboard isDraggablePiece={() => false} />
-          <PlayerStatusBar player={white} onClick={() => editStep(1)} />
+          <PlayerStatusBar player={white} onEditClick={() => editStep(1)} />
 
           <button 
             type="button" 

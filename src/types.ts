@@ -1,7 +1,12 @@
-export type ChessColour = "White" | "Black";
-export type PlayerType = "Bot" | "Human";
+import type { PieceSymbol } from "chess.js";
+
 export type BotType = "Custom" | "Resident";
+export type CapturedPieceSymbol = Exclude<PieceSymbol, "k">;
+export type CapturedPieces = Record<CapturedPieceSymbol, number>;
+export type ChessColour = "White" | "Black";
+export type ColoredChessPiece  = "wP" | "wB" | "wN" | "wR" | "wQ" | "wK" | "bP" | "bB" | "bN" | "bR" | "bQ" | "bK";
 export type DrawReasonType = "Stalemate" | "Threefold Repetition" | "Insufficient Material" | "50 Move Rule";
+export type PlayerType = "Bot" | "Human";
 
 export type Player = {
   colour: ChessColour;
@@ -17,6 +22,8 @@ export type GameState = {
   fen: string;
   moveHistory: string[];
   activePlayer: Player;
+  capturedWhitePieces: CapturedPieces,
+  capturedBlackPieces: CapturedPieces,
   isGameOver: boolean;
   isDraw: boolean;
   drawReason?: DrawReasonType;

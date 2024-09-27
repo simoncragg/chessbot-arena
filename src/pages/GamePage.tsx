@@ -14,7 +14,9 @@ const GamePage: React.FC = () => {
     white,
     black, 
     fen, 
-    activePlayer, 
+    activePlayer,
+    capturedWhitePieces, 
+    capturedBlackPieces,
     isGameOver,
   } = state;
 
@@ -27,9 +29,11 @@ const GamePage: React.FC = () => {
 
   useEffect(() => {
     const botId = activePlayer.botId;
+    
     if (botId && !isGameOver) {
       const delayMs = getDelay(botId);
       isFirstMoveRef.current = false;
+
       setTimeout(() => {
         getNextMove({fen, botId}, (move: string) => {
           dispatch({ type: "MAKE_MOVE", payload: move });
@@ -59,9 +63,9 @@ const GamePage: React.FC = () => {
     <div className="flex flex-col items-center w-full bg-neutral-900">
       <div className="flex justify-center bg-neutral-900 w-full">
         <div className="flex flex-col w-96 gap-4 items-center relative">
-          <PlayerStatusBar player={black} />
+          <PlayerStatusBar player={black} capturedPieces={capturedWhitePieces} />
           <Chessboard position={fen} isDraggablePiece={() => false} />
-          <PlayerStatusBar player={white} />
+          <PlayerStatusBar player={white} capturedPieces={capturedBlackPieces} />
           
             {isGameOverModalOpen && (
               <GameOverModal 
