@@ -24,8 +24,8 @@ const initialState: GameState = {
   fen: new Chess().fen(),
   moveHistory: [],
   activePlayer: white,
-  whiteCaptures: { p: 0, n: 0, b: 0, r: 0, q: 0 },
-  blackCaptures: { p: 0, n: 0, b: 0, r: 0, q: 0 },
+  whiteCaptures: { capturedPieces: { p: 0, n: 0, b: 0, r: 0, q: 0 }, materialScore: 0 },
+  blackCaptures: { capturedPieces: { p: 0, n: 0, b: 0, r: 0, q: 0 }, materialScore: 0 },
   isGameOver: false,
   isDraw: false,
   chessBots: []

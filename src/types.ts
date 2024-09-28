@@ -22,8 +22,8 @@ export type GameState = {
   fen: string;
   moveHistory: string[];
   activePlayer: Player;
-  whiteCaptures: CapturedPieces,
-  blackCaptures: CapturedPieces,
+  whiteCaptures: Captures,
+  blackCaptures: Captures,
   isGameOver: boolean;
   isDraw: boolean;
   drawReason?: DrawReasonType;
@@ -34,6 +34,11 @@ export type ChessBot = {
   id: string;
   name: string;
   elo: number;
+};
+
+export type Captures = {
+  capturedPieces: CapturedPieces;
+  materialScore: number;
 };
 
 export type Action = { type: "SET_CHESSBOTS", payload: ChessBot[]; }

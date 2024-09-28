@@ -1,4 +1,4 @@
-import type { CapturedPieces, Player } from "../types";
+import type { Captures, Player } from "../types";
 
 import React from "react";
 import { FaEdit } from "react-icons/fa";
@@ -6,15 +6,24 @@ import CapturedPiecesTray from "./CapturedPiecesTray";
 
 interface PlayerStatusBarProps {
   player: Player,
-  capturedPieces?: CapturedPieces;
+  captures?: Captures;
+  opponentCaptures?: Captures;
   onEditClick?: () => void
 }
 
 const PlayerStatusBar: React.FC<PlayerStatusBarProps> = ({ 
   player, 
-  capturedPieces, 
+  captures,
+  opponentCaptures,
   onEditClick 
 }) => {
+
+  const playerMaterial = captures?.materialScore ?? 0;
+  const opponentMaterial = opponentCaptures?.materialScore ?? 0;
+
+  const materialAdvantage = playerMaterial > opponentMaterial
+    ? playerMaterial - opponentMaterial
+    : null;
 
   return (
       <div className="flex flex-row items-center justify-between px-5 w-full">
@@ -23,12 +32,21 @@ const PlayerStatusBar: React.FC<PlayerStatusBarProps> = ({
           <img src={`/avatars/${player.botId}-min.jpg`} alt={`${player.name || ""} avatar`} width="48" />
 
           <div className="flex flex-col items-start -my-1">
-              <span className="text-lg leading-0">{player?.name}</span>
-              {onEditClick && player.elo && (
-                <span className="text-sm font-light">{player.elo} elo</span>
-              )}
+            <span className="text-lg leading-0">{player?.name}</span>
+            {onEditClick && player.elo && (
+              <span className="text-sm font-light">{player.elo} elo</span>
+            )}
 
-              {capturedPieces && <CapturedPiecesTray player={player} capturedPieces={capturedPieces} />}
+            {captures?.capturedPieces && (
+              <div className="flex flex-row">
+                <CapturedPiecesTray player={player} capturedPieces={captures.capturedPieces} />
+                {materialAdvantage && (
+                  <div className="inline-flex px-1 text-base rounded">
+                    +{materialAdvantage}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
 
@@ -45,6 +63,6 @@ const PlayerStatusBar: React.FC<PlayerStatusBarProps> = ({
         
       </div>
   );
-}
+};
 
 export default PlayerStatusBar;

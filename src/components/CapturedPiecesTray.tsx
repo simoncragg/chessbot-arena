@@ -38,16 +38,16 @@ const CapturedPiecesTray: React.FC<CapturedPiecesTrayProps> = ({ player, capture
 
   return (
     <div className="flex flex-row">
-      {pieceGroups.map((group) => (
-        <div key={group.label} className="flex mr-1">
-          {group.pieces.map((piece, i) => {
+      {pieceGroups.map(group => (
+        <div key={group.label} className={`flex ${group.pieces.length > 0 ? "mr-1" : ""}`}>
+          {group.pieces.map((piece, pieceIdx) => {
             const pieceNode = offBoardPieces[piece];
             return (
               <svg
-                key={`captured-piece-${group.label}-${i}`}
+                key={`captured-piece-${group.label}-${pieceIdx}`}
                 style={{
-                  marginLeft: i > 0 ? -16 : -4,
-                  zIndex: i
+                  marginLeft: pieceIdx > 0 ? -16 : -4,
+                  zIndex: pieceIdx
                 }}
                 viewBox={"1 1 43 43"}
                 width={24}
