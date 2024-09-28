@@ -13,7 +13,7 @@ const ChessBotSelector: React.FC<ChessBotSelectorProps> = ({ chessBots, selected
 
   const renderBot = (bot: ChessBot) => (
     <div className="flex flex-row items-start gap-2">
-      <img src={`/avatars/${bot.id}-min.jpg`} alt={`${bot.name} avatar`} width="50" />
+      <img src={`${import.meta.env.VITE_PUBLIC_URL}/avatars/${bot.id}-min.jpg`} alt={`${bot.name} avatar`} width="50" />
       <div className="flex flex-col items-start">
         <span className="text-lg font-normal">{bot.name}</span>
         <span className="text-sm font-light">{bot.elo} elo</span>

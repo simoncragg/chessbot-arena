@@ -29,7 +29,7 @@ const PlayerStatusBar: React.FC<PlayerStatusBarProps> = ({
       <div className="flex flex-row items-center justify-between px-5 w-full">
 
         <div className="flex flex-row items-start gap-2 w-full">
-          <img src={`/avatars/${player.botId}-min.jpg`} alt={`${player.name || ""} avatar`} width="48" />
+          <img src={`${import.meta.env.VITE_PUBLIC_URL}/avatars/${player.botId}-min.jpg`} alt={`${player.name || ""} avatar`} width="48" />
 
           <div className="flex flex-col items-start -my-1">
             <span className="text-lg leading-0">{player?.name}</span>

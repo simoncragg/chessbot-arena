@@ -74,7 +74,7 @@ const GameOverModal: React.FC<GameOverModalProps> = ({ onRematch, onClose }) => 
           {!isDraw ? (
             <>
               <img
-                src={`/avatars/${activePlayer.botId}-min.jpg`}
+                src={`${import.meta.env.VITE_PUBLIC_URL}/avatars/${activePlayer.botId}-min.jpg`}
                 alt={activePlayer.name}
                 className="w-24 h-24 rounded-md mx-auto mb-4"
               />
@@ -86,13 +86,13 @@ const GameOverModal: React.FC<GameOverModalProps> = ({ onRematch, onClose }) => 
             <div className="flex flex-col items-center">
               <div className="flex flex-row gap-2 items-center justify-center">
                 <img
-                  src={`/avatars/${white.botId}-min.jpg`}
+                  src={`${import.meta.env.VITE_PUBLIC_URL}/avatars/${white.botId}-min.jpg`}
                   alt={white.name}
                   className="w-16 h-16 rounded-md mx-auto mb-4"
                 />
                 <span className="text-xl font-bold">VS</span>
                 <img
-                  src={`/avatars/${black.botId}-min.jpg`}
+                  src={`${import.meta.env.VITE_PUBLIC_URL}/avatars/${black.botId}-min.jpg`}
                   alt={black.name}
                   className="w-16 h-16 rounded-md mx-auto mb-4"
                 />
