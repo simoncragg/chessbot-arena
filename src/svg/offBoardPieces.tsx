@@ -145,7 +145,7 @@ export const offBoardPieces: Record<ColoredChessPiece, ReactNode> = {
           <path d="M 25 8 A 2.5 2.5 0 1 1  20,8 A 2.5 2.5 0 1 1  25 8 z" />
         </g>
         <path
-          d="M 17.5,26 L 27.5,26 M 15"
+          d="M 17.5,26 L 27.5,26"
           style={{ fill: "none", stroke: "#000000", strokeLinejoin: "miter" }}
         />
       </g>
@@ -416,7 +416,7 @@ export const offBoardPieces: Record<ColoredChessPiece, ReactNode> = {
           <path d="M 25 8 A 2.5 2.5 0 1 1  20,8 A 2.5 2.5 0 1 1  25 8 z" />
         </g>
         <path
-          d="M 17.5,26 L 27.5,26 M 15"
+          d="M 17.5,26 L 27.5,26"
           style={{ fill: "none", stroke: "#BEBEBE", strokeLinejoin: "miter" }}
         />
       </g>
