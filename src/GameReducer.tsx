@@ -27,8 +27,6 @@ const reducer = (state: GameState, action: Action): GameState => {
 
     case "START_GAME":
       return startGame(state);
-      //return gameOver(startGame(state));
-      //return draw(startGame(state));
 
     case "RESET_GAME":
       return resetGame(state);
@@ -84,24 +82,6 @@ function startGame(state: GameState) {
     isDraw: false,
   };
 }
-
-// function gameOver(state: GameState) {
-//   return { 
-//     ...state,
-//     isGameOver: true,
-//     activePlayer: state.white,
-//   };
-// }
-
-// function draw(state: GameState) {
-//   return { 
-//     ...state,
-//     isGameOver: true,
-//     isDraw: true,
-//     drawReason: "Stalemate",
-//     activePlayer: state.white,
-//   };
-// }
 
 function makeMove(state: GameState, moveSan: string) {
   let move: Move | undefined;
