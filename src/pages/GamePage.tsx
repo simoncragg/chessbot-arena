@@ -15,8 +15,8 @@ const GamePage: React.FC = () => {
     black, 
     fen, 
     activePlayer,
-    capturedWhitePieces, 
-    capturedBlackPieces,
+    whiteCaptures, 
+    blackCaptures,
     isGameOver,
   } = state;
 
@@ -63,9 +63,9 @@ const GamePage: React.FC = () => {
     <div className="flex flex-col items-center w-full bg-neutral-900">
       <div className="flex justify-center bg-neutral-900 w-full">
         <div className="flex flex-col w-96 gap-4 items-center relative">
-          <PlayerStatusBar player={black} capturedPieces={capturedWhitePieces} />
+          <PlayerStatusBar player={black} capturedPieces={blackCaptures} />
           <Chessboard position={fen} isDraggablePiece={() => false} />
-          <PlayerStatusBar player={white} capturedPieces={capturedBlackPieces} />
+          <PlayerStatusBar player={white} capturedPieces={whiteCaptures} />
           
             {isGameOverModalOpen && (
               <GameOverModal 

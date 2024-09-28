@@ -76,8 +76,8 @@ function startGame(state: GameState) {
     fen: chess.fen(),
     moveHistory: [],
     activePlayer: { ...state.white },
-    capturedWhitePieces: { p: 0, n: 0, b: 0, r: 0, q: 0 },
-    capturedBlackPieces: { p: 0, n: 0, b: 0, r: 0, q: 0 },
+    whiteCaptures: { p: 0, n: 0, b: 0, r: 0, q: 0 },
+    blackCaptures: { p: 0, n: 0, b: 0, r: 0, q: 0 },
     isGameOver: false,
     isDraw: false,
   };
@@ -99,8 +99,8 @@ function makeMove(state: GameState, moveSan: string) {
     fen: chess.fen(),
     moveHistory: [... state.moveHistory, moveSan],
     activePlayer: getActivePlayer(chess, state),
-    capturedWhitePieces: getCapturedPieces(state, "Black", move),
-    capturedBlackPieces: getCapturedPieces(state, "White", move),
+    whiteCaptures: getCapturedPieces(state, "White", move),
+    blackCaptures: getCapturedPieces(state, "Black", move),
     isGameOver: chess.isGameOver(),
     isDraw: chess.isDraw(),
     drawReason: mapToDrawReason(chess)
@@ -115,16 +115,16 @@ function initChessObject(moveHistory: string[]): Chess {
 
 function getCapturedPieces(
   state: GameState, 
-  capturingColour: ChessColour,
+  capturer: ChessColour,
   move?: Move
 ): CapturedPieces {
 
   const capturedPieces = 
-    capturingColour === "White" 
-    ? { ...state.capturedBlackPieces } 
-    : { ...state.capturedWhitePieces};
+  capturer === "White" 
+    ? { ...state.whiteCaptures } 
+    : { ...state.blackCaptures};
 
-  if (state.activePlayer.colour === capturingColour && move?.captured) {
+  if (state.activePlayer.colour === capturer && move?.captured) {
     capturedPieces[move.captured as CapturedPieceSymbol] += 1;
   }
 

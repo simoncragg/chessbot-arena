@@ -22,8 +22,8 @@ export type GameState = {
   fen: string;
   moveHistory: string[];
   activePlayer: Player;
-  capturedWhitePieces: CapturedPieces,
-  capturedBlackPieces: CapturedPieces,
+  whiteCaptures: CapturedPieces,
+  blackCaptures: CapturedPieces,
   isGameOver: boolean;
   isDraw: boolean;
   drawReason?: DrawReasonType;

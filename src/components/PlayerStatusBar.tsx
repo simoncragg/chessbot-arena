@@ -10,7 +10,11 @@ interface PlayerStatusBarProps {
   onEditClick?: () => void
 }
 
-const PlayerStatusBar: React.FC<PlayerStatusBarProps> = ({ player, capturedPieces, onEditClick }) => {
+const PlayerStatusBar: React.FC<PlayerStatusBarProps> = ({ 
+  player, 
+  capturedPieces, 
+  onEditClick 
+}) => {
 
   return (
       <div className="flex flex-row items-center justify-between px-5 w-full">
