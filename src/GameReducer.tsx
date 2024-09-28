@@ -63,6 +63,8 @@ function resetGame(state: GameState) {
     black,
     moveHistory: [],
     activePlayer: { ...state.white },
+    whiteCaptures: { p: 0, n: 0, b: 0, r: 0, q: 0 },
+    blackCaptures: { p: 0, n: 0, b: 0, r: 0, q: 0 },
     isGameOver: false,
     isDraw: false,
   };
