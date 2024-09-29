@@ -9,13 +9,17 @@ import PlayerForm from "../components/PlayerForm";
 import PlayerStatusBar from "../components/PlayerStatusBar";
 import { useGame } from "../GameContext";
 
+const GAME_SETUP_STEP_WHITE_PLAYER = 1;
+const GAME_SETUP_STEP_BLACK_PLAYER = 2;
+const GAME_SETUP_STEP_SUMMARY = 3;
+
 const NewGamePage: React.FC = () => {
   
   const navigate = useNavigate();
   const { state, dispatch } = useGame();
   const { white, black, boardOrientation } = state;
 
-  const [step, setStep] = useState<number>(1);
+  const [step, setStep] = useState<number>(GAME_SETUP_STEP_WHITE_PLAYER);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
   useEffect(() => {
@@ -28,17 +32,24 @@ const NewGamePage: React.FC = () => {
   };
 
   const onEditClick = (player: Player) => {
-    const step = player.colour === "White" ? 1 : 2;
+    const step = player.colour === "White"
+      ? GAME_SETUP_STEP_WHITE_PLAYER
+      : GAME_SETUP_STEP_BLACK_PLAYER;
+
     editStep(step);
   };
 
   const updateState = (player: Player) => {
-    if (step === 1) {
+    if (step === GAME_SETUP_STEP_WHITE_PLAYER) {
       dispatch({ type: "SET_WHITE", payload: player });
-      setStep(isEditMode ? 3 : 2);
-    } else {
+      const nextStep = isEditMode
+        ? GAME_SETUP_STEP_SUMMARY 
+        : GAME_SETUP_STEP_BLACK_PLAYER;
+      setStep(nextStep);
+    }
+    else {
       dispatch({ type: "SET_BLACK", payload: player });
-      setStep(3);
+      setStep(GAME_SETUP_STEP_SUMMARY);
     }
     setIsEditMode(false);
   };
@@ -65,7 +76,7 @@ const NewGamePage: React.FC = () => {
 
       </div>
 
-      {step === 3 && (
+      {step === GAME_SETUP_STEP_SUMMARY && (
         <div className="flex flex-col w-96 gap-2 items-start">
 
           {boardOrientation === "white"
