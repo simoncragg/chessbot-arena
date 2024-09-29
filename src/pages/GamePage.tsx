@@ -68,11 +68,16 @@ const GamePage: React.FC = () => {
     return pieceColour === activePlayer.colour;
   };
 
-  const onPieceDrop = (sourceSquare: Square, targetSquare: Square): boolean => {
+  const onPieceDrop = (
+    sourceSquare: Square, 
+    targetSquare: Square, 
+    piece: ColoredChessPiece
+  ): boolean => {
+    
       const move: PieceMove = { 
         from: sourceSquare,
         to: targetSquare,
-        promotion: "q"
+        promotion: piece[1].toLowerCase() ?? "q"
       };
 
       if (isValidMove(move, fen)) {
