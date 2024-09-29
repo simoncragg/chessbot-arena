@@ -140,6 +140,8 @@ const GamePage: React.FC = () => {
       <div className="flex justify-center bg-neutral-900 w-full">
         <div className="flex flex-col w-96 gap-4 items-center relative">
 
+          {activePlayer.playerType === "Bot" && <div className="loader absolute top-4 right-6"></div>}
+
           {boardOrientation === "white"
             ? <PlayerStatusBar player={black} captures={blackCaptures} opponentCaptures={whiteCaptures} />
             : <PlayerStatusBar player={white} captures={whiteCaptures} opponentCaptures={blackCaptures} />
