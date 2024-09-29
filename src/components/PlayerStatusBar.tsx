@@ -3,6 +3,7 @@ import type { Captures, Player } from "../types";
 import React from "react";
 import { FaEdit } from "react-icons/fa";
 import CapturedPiecesTray from "./CapturedPiecesTray";
+import Avatar from "./Avatar";
 
 interface PlayerStatusBarProps {
   player: Player,
@@ -29,7 +30,7 @@ const PlayerStatusBar: React.FC<PlayerStatusBarProps> = ({
       <div className="flex flex-row items-center justify-between px-5 w-full">
 
         <div className="flex flex-row items-start gap-2 w-full">
-          <img src={`${import.meta.env.VITE_PUBLIC_URL}/avatars/${player.botId}-min.jpg`} alt={`${player.name || ""} avatar`} width="48" />
+          <Avatar player={player} className="w-12" />
 
           <div className="flex flex-col items-start -my-1">
             <span className="text-lg leading-0">{player?.name}</span>

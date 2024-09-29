@@ -1,4 +1,5 @@
-import type { Player } from "./types";
+import type { PieceMove, Player } from "./types";
+import { Chess } from "chess.js";
 
 export function isValidPlayer(player: Player) {
 
@@ -19,6 +20,17 @@ export function isValidPlayer(player: Player) {
   }
 
   return player.botId;
+}
+
+export function isValidMove(move: PieceMove, fen: string) {
+  const game = new Chess(fen);
+  try {
+    const result = game.move(move);
+    return result !== null;
+  }
+  catch (error: unknown) {
+    return false;
+  }
 }
 
 export function getRandomInt(min: number, max: number): number {

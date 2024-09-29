@@ -1,4 +1,5 @@
 import type { Move } from "chess.js";
+import type { PieceMove } from "./types";
 import type { 
   Action, 
   Captures, 
@@ -85,12 +86,18 @@ function startGame(state: GameState) {
   };
 }
 
-function makeMove(state: GameState, moveSan: string) {
+function makeMove(state: GameState, pieceMove: string | PieceMove) {
+
   let move: Move | undefined;
   const chess = initChessObject(state.moveHistory);
-  console.log(`${state.activePlayer.colour} move: ${moveSan}`);
+
   try {
-    move = chess.move(moveSan);
+    move = chess.move(pieceMove);
+    console.log(`${state.activePlayer.colour} move: ${move.san}`);
+    
+    if (move === null) {
+      throw new Error("Invalid move");
+    }
   }
   catch (err: unknown) {
     console.log(err, {state});
@@ -99,7 +106,7 @@ function makeMove(state: GameState, moveSan: string) {
   return { 
     ...state,
     fen: chess.fen(),
-    moveHistory: [... state.moveHistory, moveSan],
+    moveHistory: [... state.moveHistory, move!.san],
     activePlayer: getActivePlayer(chess, state),
     whiteCaptures: getCaptures(state, "White", move),
     blackCaptures: getCaptures(state, "Black", move),

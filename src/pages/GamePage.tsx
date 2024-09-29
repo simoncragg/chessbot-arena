@@ -1,10 +1,13 @@
+import type { Square } from "chess.js";
+import type { ColoredChessPiece, PieceMove } from "../types";
+
 import React, { useEffect, useRef, useState } from "react";
 import { Chessboard } from "react-chessboard";
 
 import GameOverModal from "../components/GameOverModal";
 import PlayerStatusBar from "../components/PlayerStatusBar";
 import getNextMove from "../services/getNextMove";
-import { getRandomInt } from "../utils";
+import { getRandomInt, isValidMove } from "../utils";
 import { useGame } from "../GameContext";
 
 const GamePage: React.FC = () => {
@@ -28,9 +31,9 @@ const GamePage: React.FC = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    const botId = activePlayer.botId;
+    const { playerType, botId } = activePlayer;
     
-    if (botId && !isGameOver) {
+    if (playerType === "Bot" && botId && !isGameOver) {
       const delayMs = getDelay(botId);
       isFirstMoveRef.current = false;
 
@@ -59,20 +62,51 @@ const GamePage: React.FC = () => {
     return botId === "ae55ae42-8c32-4605-93ae-399b013dc8ca";
   };
 
+  const isDraggablePiece = (args: { piece: ColoredChessPiece; }): boolean => {
+    const pieceColour = args.piece.substring(0, 1) === "w" ? "White" : "Black";
+    return pieceColour === activePlayer.colour;
+  };
+
+  const onPieceDrop = (sourceSquare: Square, targetSquare: Square): boolean => {
+      const move: PieceMove = { 
+        from: sourceSquare,
+        to: targetSquare,
+        promotion: "q"
+      };
+
+      if (isValidMove(move, fen)) {
+        dispatch({type: "MAKE_MOVE", payload: move });
+        return true;
+      }
+
+      return false;
+  };
+
    return (
     <div className="flex flex-col items-center w-full bg-neutral-900">
       <div className="flex justify-center bg-neutral-900 w-full">
         <div className="flex flex-col w-96 gap-4 items-center relative">
-          <PlayerStatusBar player={black} captures={blackCaptures} opponentCaptures={whiteCaptures} />
-          <Chessboard position={fen} isDraggablePiece={() => false} />
-          <PlayerStatusBar player={white} captures={whiteCaptures} opponentCaptures={blackCaptures} />
+
+          {white.playerType === "Human" && black.playerType === "Bot" ? (
+            <>
+              <PlayerStatusBar player={black} captures={blackCaptures} opponentCaptures={whiteCaptures} />
+              <Chessboard boardOrientation="white" position={fen} isDraggablePiece={isDraggablePiece} onPieceDrop={onPieceDrop} />
+              <PlayerStatusBar player={white} captures={whiteCaptures} opponentCaptures={blackCaptures} />
+            </>
+          ) : (
+            <>
+              <PlayerStatusBar player={white} captures={whiteCaptures} opponentCaptures={blackCaptures} />
+              <Chessboard boardOrientation="black" position={fen} isDraggablePiece={isDraggablePiece} onPieceDrop={onPieceDrop} />
+              <PlayerStatusBar player={black} captures={blackCaptures} opponentCaptures={whiteCaptures} />
+            </>
+          )}
           
-            {isGameOverModalOpen && (
-              <GameOverModal 
-                onRematch={() => dispatch({ type: "START_GAME"})}
-                onClose={() => setIsGameOverModalOpen(false)}
-              />
-            )}
+          {isGameOverModalOpen && (
+            <GameOverModal 
+              onRematch={() => dispatch({ type: "START_GAME"})}
+              onClose={() => setIsGameOverModalOpen(false)}
+            />
+          )}
 
         </div>
       </div>

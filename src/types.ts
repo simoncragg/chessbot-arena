@@ -41,12 +41,18 @@ export type Captures = {
   materialScore: number;
 };
 
+export type PieceMove = string | {
+  from: string;
+  to: string;
+  promotion?: string;
+};
+
 export type Action = { type: "SET_CHESSBOTS", payload: ChessBot[]; }
   | { type: "SET_WHITE"; payload: Player; }
   | { type: "SET_BLACK"; payload: Player; }
   | { type: "RESET_GAME" }
   | { type: "START_GAME"; }
-  | { type: "MAKE_MOVE"; payload: string };
+  | { type: "MAKE_MOVE"; payload: string | PieceMove };
 
 export interface MoveResponse {
   move: string | null;

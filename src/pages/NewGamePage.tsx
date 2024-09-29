@@ -28,6 +28,11 @@ const NewGamePage: React.FC = () => {
     setStep(step);
   };
 
+  const onEditClick = (player: Player) => {
+    const step = player.colour === "White" ? 1 : 2;
+    editStep(step);
+  };
+
   const updateState = (player: Player) => {
     if (step === 1) {
       setwhite(player);
@@ -66,9 +71,19 @@ const NewGamePage: React.FC = () => {
       {step === 3 && (
         <div className="flex flex-col w-96 gap-2 items-start">
 
-          <PlayerStatusBar player={black} onEditClick={() => editStep(2)} />
-          <Chessboard isDraggablePiece={() => false} />
-          <PlayerStatusBar player={white} onEditClick={() => editStep(1)} />
+          {white.playerType === "Human" && black.playerType === "Bot" ? (
+            <>
+              <PlayerStatusBar player={black} onEditClick={() => onEditClick(black)} />
+              <Chessboard boardOrientation="white" isDraggablePiece={() => false} />
+              <PlayerStatusBar player={white} onEditClick={() => onEditClick(white)} />
+            </>
+          ) : (
+            <>
+              <PlayerStatusBar player={white} onEditClick={() => onEditClick(white)} />
+              <Chessboard boardOrientation="black" isDraggablePiece={() => false} />
+              <PlayerStatusBar player={black} onEditClick={() => onEditClick(black)} />
+            </>
+          )}
 
           <button 
             type="button" 

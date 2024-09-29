@@ -4,6 +4,7 @@ import { useSpring, animated } from "@react-spring/web";
 
 import Fireworks from "react-canvas-confetti/dist/presets/fireworks";
 import { useGame } from "../GameContext";
+import Avatar from "./Avatar";
 
 interface GameOverModalProps {
   onRematch: () => void;
@@ -71,35 +72,23 @@ const GameOverModal: React.FC<GameOverModalProps> = ({ onRematch, onClose }) => 
             <MdClose size={24} />
           </button>
 
-          {!isDraw ? (
-            <>
-              <img
-                src={`${import.meta.env.VITE_PUBLIC_URL}/avatars/${activePlayer.botId}-min.jpg`}
-                alt={activePlayer.name}
-                className="w-24 h-24 rounded-md mx-auto mb-4"
-              />
-              <p className="text-2xl font-semibold text-white mb-2">{activePlayer.name}</p>
-              <p className="text-2xl font-bold bg-gradient-to-b from-yellow-100 to-yellow-600 text-transparent bg-clip-text mb-1">WINS!</p>
-              <p className="text-white mb-6">by Checkmate</p>
-            </>
-          ) : (
+          {isDraw ? (
             <div className="flex flex-col items-center">
               <div className="flex flex-row gap-2 items-center justify-center">
-                <img
-                  src={`${import.meta.env.VITE_PUBLIC_URL}/avatars/${white.botId}-min.jpg`}
-                  alt={white.name}
-                  className="w-16 h-16 rounded-md mx-auto mb-4"
-                />
+                <Avatar player={white} className="w-16 h-16 rounded-md mx-auto mb-4" />
                 <span className="text-xl font-bold">VS</span>
-                <img
-                  src={`${import.meta.env.VITE_PUBLIC_URL}/avatars/${black.botId}-min.jpg`}
-                  alt={black.name}
-                  className="w-16 h-16 rounded-md mx-auto mb-4"
-                />
+                <Avatar player={black} className="w-16 h-16 rounded-md mx-auto mb-4" />
               </div>
               <p className="text-4xl font-bold bg-gradient-to-b from-gray-100 to-gray-600 text-transparent bg-clip-text mb-1">DRAW</p>
               <p className="text-white mb-6">by {drawReason}</p>
             </div>
+          ) : (
+            <>
+              <Avatar player={activePlayer} className="w-24 h-24 rounded-md mx-auto mb-4" />
+              <p className="text-2xl font-semibold text-white mb-2">{activePlayer.name}</p>
+              <p className="text-2xl font-bold bg-gradient-to-b from-yellow-100 to-yellow-600 text-transparent bg-clip-text mb-1">WINS!</p>
+              <p className="text-white mb-6">by Checkmate</p>
+            </>
           )}
 
           <button 
