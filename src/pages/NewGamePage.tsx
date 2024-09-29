@@ -71,17 +71,17 @@ const NewGamePage: React.FC = () => {
       {step === 3 && (
         <div className="flex flex-col w-96 gap-2 items-start">
 
-          {white.playerType === "Human" && black.playerType === "Bot" ? (
-            <>
-              <PlayerStatusBar player={black} onEditClick={() => onEditClick(black)} />
-              <Chessboard boardOrientation="white" isDraggablePiece={() => false} />
-              <PlayerStatusBar player={white} onEditClick={() => onEditClick(white)} />
-            </>
-          ) : (
+          {black.playerType === "Human" && white.playerType === "Bot" ? (
             <>
               <PlayerStatusBar player={white} onEditClick={() => onEditClick(white)} />
               <Chessboard boardOrientation="black" isDraggablePiece={() => false} />
               <PlayerStatusBar player={black} onEditClick={() => onEditClick(black)} />
+            </>
+          ) : (
+            <>
+              <PlayerStatusBar player={black} onEditClick={() => onEditClick(black)} />
+              <Chessboard boardOrientation="white" isDraggablePiece={() => false} />
+              <PlayerStatusBar player={white} onEditClick={() => onEditClick(white)} />
             </>
           )}
 
