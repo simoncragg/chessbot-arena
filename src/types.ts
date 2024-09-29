@@ -20,16 +20,17 @@ export type Player = {
 export type GameState = {
   white: Player;
   black: Player;
+  boardOrientation: BoardOrientation;
   fen: string;
+  lastMove?: PieceMove;
   moveHistory: string[];
   activePlayer: Player;
   whiteCaptures: Captures,
   blackCaptures: Captures,
   isGameOver: boolean;
   isDraw: boolean;
-  drawReason?: DrawReasonType;
+  drawReason?: DrawReasonType;  
   chessBots: ChessBot[];
-  boardOrientation: BoardOrientation;
 };
 
 export type ChessBot = {
@@ -43,7 +44,7 @@ export type Captures = {
   materialScore: number;
 };
 
-export type PieceMove = string | {
+export type PieceMove = {
   from: string;
   to: string;
   promotion?: string;

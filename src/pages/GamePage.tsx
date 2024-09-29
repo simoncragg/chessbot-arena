@@ -10,20 +10,27 @@ import getNextMove from "../services/getNextMove";
 import { getRandomInt, isValidMove } from "../utils";
 import { useGame } from "../GameContext";
 
+const MOVE_HIGHLIGHT_COLOR = "rgba(255, 255, 0, 0.4)";
+
+type MoveSquares = Partial<Record<Square, { background: string }>>;
+
 const GamePage: React.FC = () => {
 
   const { state, dispatch } = useGame();
   const {
+    boardOrientation,
     white,
     black, 
     fen, 
-    boardOrientation,    
+    lastMove,
     activePlayer,
     whiteCaptures, 
     blackCaptures,
     isGameOver,
   } = state;
 
+  const [moveFrom, setMoveFrom] = useState<Square | null>(null);
+  const [moveSquares, setMoveSquares] = useState<MoveSquares>({});
   const [isGameOverModalOpen, setIsGameOverModalOpen] = useState<boolean>(false);
   const isFirstMoveRef = useRef<boolean>(true);
 
@@ -46,6 +53,16 @@ const GamePage: React.FC = () => {
     }
 
   }, [fen, activePlayer, isGameOver, dispatch]);
+
+  useEffect(() => {
+    if (lastMove) {
+      setMoveSquares({
+        [lastMove.from]: { background: MOVE_HIGHLIGHT_COLOR },
+        [lastMove.to]: { background: MOVE_HIGHLIGHT_COLOR }
+      });
+      setMoveFrom(null);
+    }
+  }, [lastMove]);
 
   useEffect(() => {
     if (isGameOver) {
@@ -73,7 +90,7 @@ const GamePage: React.FC = () => {
     targetSquare: Square, 
     piece: ColoredChessPiece
   ): boolean => {
-    
+
       const move: PieceMove = { 
         from: sourceSquare,
         to: targetSquare,
@@ -86,6 +103,36 @@ const GamePage: React.FC = () => {
       }
 
       return false;
+  };
+
+  const onSquareClick = (
+    square: Square, 
+    piece: ColoredChessPiece | undefined
+): boolean => {
+
+    if (square === moveFrom) {
+      setMoveSquares({});
+      return false;
+    }
+ 
+    if (piece && piece[0].toLowerCase() == activePlayer.colour[0].toLowerCase()) {
+      setMoveFrom(square);
+      setMoveSquares({[square] : { background: "rgba(255, 255, 0, 0.4)" } });
+      return false;
+    }
+
+    const move: PieceMove = { 
+      from: moveFrom as string,
+      to: square as string,
+      promotion: "q"
+    };
+
+    if (isValidMove(move, fen)) {
+      dispatch({type: "MAKE_MOVE", payload: move });
+      return true;
+    }
+
+    return false;
   };
 
    return (
@@ -103,6 +150,8 @@ const GamePage: React.FC = () => {
             position={fen} 
             isDraggablePiece={isDraggablePiece} 
             onPieceDrop={onPieceDrop}
+            onSquareClick={onSquareClick}
+            customSquareStyles={{ ...moveSquares }}
           />
 
           {boardOrientation === "white"

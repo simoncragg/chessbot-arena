@@ -22,7 +22,7 @@ export function isValidPlayer(player: Player) {
   return player.botId;
 }
 
-export function isValidMove(move: PieceMove, fen: string) {
+export function isValidMove(move: string | PieceMove, fen: string) {
   const game = new Chess(fen);
   try {
     const result = game.move(move);

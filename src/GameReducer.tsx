@@ -70,6 +70,7 @@ function resetGame(state: GameState) {
     fen: chess.fen(),
     white,
     black,
+    lastMove: undefined,
     moveHistory: [],
     activePlayer: { ...state.white },
     whiteCaptures: { capturedPieces: { p: 0, n: 0, b: 0, r: 0, q: 0 }, materialScore: 0 },
@@ -86,6 +87,7 @@ function startGame(state: GameState) {
   return { 
     ...state,
     fen: chess.fen(),
+    lastMove: undefined,
     moveHistory: [],
     activePlayer: { ...state.white },
     whiteCaptures: { capturedPieces: { p: 0, n: 0, b: 0, r: 0, q: 0 }, materialScore: 0 },
@@ -116,6 +118,7 @@ function makeMove(state: GameState, pieceMove: string | PieceMove) {
   return { 
     ...state,
     fen: chess.fen(),
+    lastMove: move,
     moveHistory: [... state.moveHistory, move!.san],
     activePlayer: getActivePlayer(chess, state),
     whiteCaptures: getCaptures(state, "White", move),
