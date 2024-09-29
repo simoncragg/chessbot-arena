@@ -1,5 +1,6 @@
 import type { PieceSymbol } from "chess.js";
 
+export type BoardOrientation = "white" | "black";
 export type BotType = "Custom" | "Resident";
 export type CapturedPieceSymbol = Exclude<PieceSymbol, "k">;
 export type CapturedPieces = Record<CapturedPieceSymbol, number>;
@@ -28,6 +29,7 @@ export type GameState = {
   isDraw: boolean;
   drawReason?: DrawReasonType;
   chessBots: ChessBot[];
+  boardOrientation: BoardOrientation;
 };
 
 export type ChessBot = {

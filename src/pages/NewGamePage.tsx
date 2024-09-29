@@ -12,11 +12,10 @@ import { useGame } from "../GameContext";
 const NewGamePage: React.FC = () => {
   
   const navigate = useNavigate();
-  const { dispatch } = useGame();
+  const { state, dispatch } = useGame();
+  const { white, black, boardOrientation } = state;
 
   const [step, setStep] = useState<number>(1);
-  const [white, setwhite] = useState<Player>({ colour: "White", playerType: "Bot", name: "" });
-  const [black, setblack] = useState<Player>({ colour: "Black", playerType: "Bot", name: "" });
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
   useEffect(() => {
@@ -35,20 +34,18 @@ const NewGamePage: React.FC = () => {
 
   const updateState = (player: Player) => {
     if (step === 1) {
-      setwhite(player);
+      dispatch({ type: "SET_WHITE", payload: player });
       setStep(isEditMode ? 3 : 2);
     } else {
-      setblack(player);
+      dispatch({ type: "SET_BLACK", payload: player });
       setStep(3);
     }
     setIsEditMode(false);
   };
 
   const startGame = () => {
-    dispatch({ type: "SET_WHITE", payload: white });
-    dispatch({ type: "SET_BLACK", payload: black });
     navigate("/game");
-  }
+  };
 
   return (
     <div className="flex flex-col items-center">
@@ -71,19 +68,17 @@ const NewGamePage: React.FC = () => {
       {step === 3 && (
         <div className="flex flex-col w-96 gap-2 items-start">
 
-          {black.playerType === "Human" && white.playerType === "Bot" ? (
-            <>
-              <PlayerStatusBar player={white} onEditClick={() => onEditClick(white)} />
-              <Chessboard boardOrientation="black" isDraggablePiece={() => false} />
-              <PlayerStatusBar player={black} onEditClick={() => onEditClick(black)} />
-            </>
-          ) : (
-            <>
-              <PlayerStatusBar player={black} onEditClick={() => onEditClick(black)} />
-              <Chessboard boardOrientation="white" isDraggablePiece={() => false} />
-              <PlayerStatusBar player={white} onEditClick={() => onEditClick(white)} />
-            </>
-          )}
+          {boardOrientation === "white"
+            ? <PlayerStatusBar player={black} onEditClick={() => onEditClick(black)} />
+            : <PlayerStatusBar player={white} onEditClick={() => onEditClick(white)} />
+          }
+          
+          <Chessboard boardOrientation={boardOrientation} isDraggablePiece={() => false} />
+
+          {boardOrientation === "white"
+            ? <PlayerStatusBar player={white} onEditClick={() => onEditClick(white)} />
+            : <PlayerStatusBar player={black} onEditClick={() => onEditClick(black)} />
+          }
 
           <button 
             type="button" 

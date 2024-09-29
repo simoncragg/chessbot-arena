@@ -17,6 +17,7 @@ const GamePage: React.FC = () => {
     white,
     black, 
     fen, 
+    boardOrientation,    
     activePlayer,
     whiteCaptures, 
     blackCaptures,
@@ -87,20 +88,23 @@ const GamePage: React.FC = () => {
       <div className="flex justify-center bg-neutral-900 w-full">
         <div className="flex flex-col w-96 gap-4 items-center relative">
 
-          {black.playerType === "Human" && white.playerType === "Bot" ? (
-            <>
-              <PlayerStatusBar player={white} captures={whiteCaptures} opponentCaptures={blackCaptures} />
-              <Chessboard boardOrientation="black" position={fen} isDraggablePiece={isDraggablePiece} onPieceDrop={onPieceDrop} />
-              <PlayerStatusBar player={black} captures={blackCaptures} opponentCaptures={whiteCaptures} />
-            </>
-          ) : (
-            <>
-              <PlayerStatusBar player={black} captures={blackCaptures} opponentCaptures={whiteCaptures} />
-              <Chessboard boardOrientation="white" position={fen} isDraggablePiece={isDraggablePiece} onPieceDrop={onPieceDrop} />
-              <PlayerStatusBar player={white} captures={whiteCaptures} opponentCaptures={blackCaptures} />
-            </>
-          )}
-          
+          {boardOrientation === "white"
+            ? <PlayerStatusBar player={black} captures={blackCaptures} opponentCaptures={whiteCaptures} />
+            : <PlayerStatusBar player={white} captures={whiteCaptures} opponentCaptures={blackCaptures} />
+          }
+
+          <Chessboard 
+            boardOrientation={boardOrientation} 
+            position={fen} 
+            isDraggablePiece={isDraggablePiece} 
+            onPieceDrop={onPieceDrop}
+          />
+
+          {boardOrientation === "white"
+            ? <PlayerStatusBar player={white} captures={whiteCaptures} opponentCaptures={blackCaptures} />
+            : <PlayerStatusBar player={black} captures={blackCaptures} opponentCaptures={whiteCaptures} />
+          }
+
           {isGameOverModalOpen && (
             <GameOverModal 
               onRematch={() => dispatch({ type: "START_GAME"})}

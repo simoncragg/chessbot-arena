@@ -1,5 +1,5 @@
 import type { Move } from "chess.js";
-import type { PieceMove } from "./types";
+import type { BoardOrientation, PieceMove } from "./types";
 import type { 
   Action, 
   Captures, 
@@ -44,12 +44,20 @@ function setChessBots(state: GameState, payload: ChessBot[]) {
   return { ...state, chessBots: payload };
 }
 
-function setWhite(state: GameState, payload: Player) {
-  return { ...state, white: payload };
+function setWhite(state: GameState, white: Player) {
+  return { 
+    ...state, 
+    white,
+    boardOrientation: getBoardOrientation(white, state.black)
+  };
 }
 
-function setBlack(state: GameState, payload: Player) {
-  return { ...state, black: payload };
+function setBlack(state: GameState, black: Player) {
+  return { 
+    ...state, 
+    black,
+    boardOrientation: getBoardOrientation(state.white, black)
+  };
 }
 
 function resetGame(state: GameState) {
@@ -68,6 +76,7 @@ function resetGame(state: GameState) {
     blackCaptures: { capturedPieces: { p: 0, n: 0, b: 0, r: 0, q: 0 }, materialScore: 0 },
     isGameOver: false,
     isDraw: false,
+    boardOrientation: getBoardOrientation(white, black)
   };
 }
 
@@ -83,6 +92,7 @@ function startGame(state: GameState) {
     blackCaptures: { capturedPieces: { p: 0, n: 0, b: 0, r: 0, q: 0 }, materialScore: 0 },
     isGameOver: false,
     isDraw: false,
+    boardOrientation: getBoardOrientation(state.white, state.black)
   };
 }
 
@@ -174,6 +184,12 @@ function mapToDrawReason(chess: Chess): DrawReasonType | undefined {
   }
 
   return "50 Move Rule";
+}
+
+function getBoardOrientation(white: Player, black: Player): BoardOrientation {
+  return black.playerType === "Human" && white.playerType === "Bot"
+    ? "black"
+    : "white";
 }
 
 export default reducer;
