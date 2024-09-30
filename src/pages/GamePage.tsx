@@ -129,7 +129,6 @@ const GamePage: React.FC = () => {
 
     if (isValidMove(move, fen)) {
       dispatch({type: "MAKE_MOVE", payload: move });
-      return true;
     }
 
     return false;
