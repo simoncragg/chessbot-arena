@@ -4,11 +4,13 @@ import React from "react";
 import { FaEdit } from "react-icons/fa";
 import CapturedPiecesTray from "./CapturedPiecesTray";
 import Avatar from "./Avatar";
+import Pulse from "./Pulse";
 
 interface PlayerStatusBarProps {
   player: Player,
   captures?: Captures;
   opponentCaptures?: Captures;
+  isThinking?: boolean;
   onEditClick?: () => void
 }
 
@@ -16,6 +18,7 @@ const PlayerStatusBar: React.FC<PlayerStatusBarProps> = ({
   player, 
   captures,
   opponentCaptures,
+  isThinking,
   onEditClick 
 }) => {
 
@@ -33,9 +36,10 @@ const PlayerStatusBar: React.FC<PlayerStatusBarProps> = ({
           <Avatar player={player} className="w-12" />
 
           <div className="flex flex-col items-start -my-1">
-            <div className="flex flex-row gap-2">
+            <div className="flex flex-row gap-2 items-center">
               <span className="text-lg">{player?.name}</span>
-              {!onEditClick && <span className="text-sm font-light mt-1">({player.elo})</span>}
+              {!onEditClick && <span className="text-sm font-light">({player.elo})</span>}
+              {isThinking && <Pulse className="mt-0.5 ml-1.5" />}
             </div>
             {onEditClick && <span className="text-sm font-light">{player.elo} elo</span>}
             {captures?.capturedPieces && (

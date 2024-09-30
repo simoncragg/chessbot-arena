@@ -35,6 +35,7 @@ const GamePage: React.FC = () => {
     moveTo,
   } = useHumanMove();
 
+  const [isThinking, setIsThinking] = useState<boolean>(false);
   const [isGameOverModalOpen, setIsGameOverModalOpen] = useState<boolean>(false);
   const isFirstMoveRef = useRef<boolean>(true);
 
@@ -48,9 +49,10 @@ const GamePage: React.FC = () => {
     if (playerType === "Bot" && botId && !isGameOver) {
       const delayMs = getDelay(botId);
       isFirstMoveRef.current = false;
-
+      setIsThinking(true);
       setTimeout(() => {
         getNextMove({ fen, botId }, result => {
+          setIsThinking(false);
           dispatch({ type: "MAKE_MOVE", payload: result });
         });
       }, delayMs);
@@ -84,21 +86,20 @@ const GamePage: React.FC = () => {
     <div className="flex flex-col items-center w-full bg-neutral-900">
       <div className="flex justify-center bg-neutral-900 w-full">
         <div className="flex flex-col gap-4 items-center w-96 md:w-vh-minus-300 relative">
-          {activePlayer.playerType === "Bot" && (
-            <div className="loader absolute top-4 right-6"></div>
-          )}
-
+          
           {boardOrientation === "white" ? (
             <PlayerStatusBar
               player={black}
               captures={blackCaptures}
               opponentCaptures={whiteCaptures}
+              isThinking={activePlayer.colour === "Black" && isThinking}
             />
           ) : (
             <PlayerStatusBar
               player={white}
               captures={whiteCaptures}
               opponentCaptures={blackCaptures}
+              isThinking={activePlayer.colour === "White" && isThinking}
             />
           )}
 
@@ -120,12 +121,14 @@ const GamePage: React.FC = () => {
               player={white}
               captures={whiteCaptures}
               opponentCaptures={blackCaptures}
+              isThinking={activePlayer.colour === "White" && isThinking}
             />
           ) : (
             <PlayerStatusBar
               player={black}
               captures={blackCaptures}
               opponentCaptures={whiteCaptures}
+              isThinking={activePlayer.colour === "Black" && isThinking}
             />
           )}
 
