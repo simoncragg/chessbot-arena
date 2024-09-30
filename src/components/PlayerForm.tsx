@@ -85,11 +85,11 @@ const PlayerForm: React.FC<PlayerFormProps> = ({ player, submitText, onSubmit })
   };
 
   const pawnTextColour = player.colour === "White" ? "text-white" : "text-black";
-  const pawnBgColour = player.colour === "White" ? "bg-black" : "bg-white";
+  const pawnBgColour = player.colour === "White" ? "bg-black" : "bg-white/90";
 
   return (
     <div className="flex flex-col">
-      <div className="relative flex flex-col p-8 w-96 text-neutral-300 bg-neutral-800 rounded-md mb-8">
+      <div className="relative flex flex-col p-8 text-neutral-300 bg-neutral-800 rounded-2xl mb-8 w-96 drop-shadow-[0_4px_12px_rgba(96,165,250,0.5)]">
         <div className="flex flex-col w-full items-center gap-2">
           <div className={`p-2 ${pawnBgColour} rounded-full`}>
             <GiPawn className={`w-8 h-8 ${pawnTextColour}`} />
