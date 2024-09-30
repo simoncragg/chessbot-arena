@@ -29,15 +29,15 @@ const PlayerStatusBar: React.FC<PlayerStatusBarProps> = ({
   return (
       <div className="flex flex-row items-center justify-between px-5 w-full">
 
-        <div className="flex flex-row items-start gap-2 w-full">
+        <div className="flex flex-row items-start gap-3 w-full">
           <Avatar player={player} className="w-12" />
 
           <div className="flex flex-col items-start -my-1">
-            <span className="text-lg leading-0">{player?.name}</span>
-            {onEditClick && player.elo && (
-              <span className="text-sm font-light">{player.elo} elo</span>
-            )}
-
+            <div className="flex flex-row gap-2">
+              <span className="text-lg">{player?.name}</span>
+              {!onEditClick && <span className="text-sm font-light mt-1">({player.elo})</span>}
+            </div>
+            {onEditClick && <span className="text-sm font-light">{player.elo} elo</span>}
             {captures?.capturedPieces && (
               <div className="flex flex-row">
                 <CapturedPiecesTray player={player} capturedPieces={captures.capturedPieces} />

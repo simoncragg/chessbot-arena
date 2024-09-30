@@ -47,7 +47,7 @@ function setChessBots(state: GameState, payload: ChessBot[]) {
 function setWhite(state: GameState, white: Player) {
   return { 
     ...state, 
-    white,
+    white: { ...white, elo: getElo(white) },
     boardOrientation: getBoardOrientation(white, state.black)
   };
 }
@@ -55,7 +55,7 @@ function setWhite(state: GameState, white: Player) {
 function setBlack(state: GameState, black: Player) {
   return { 
     ...state, 
-    black,
+    black: { ...black, elo: getElo(black) },
     boardOrientation: getBoardOrientation(state.white, black)
   };
 }
@@ -98,7 +98,6 @@ function startGame(state: GameState) {
   };
 }
 
-function makeMove(state: GameState, pieceMove: string | PieceMove) {
 function makeMove(state: GameState, payload: MakeMovePayload) {
 
   if (payload.fen !== state.fen) {
@@ -198,6 +197,13 @@ function getBoardOrientation(white: Player, black: Player): BoardOrientation {
   return black.playerType === "Human" && white.playerType === "Bot"
     ? "black"
     : "white";
+}
+
+function getElo(player: Player): number {
+  const defaultElo = 400;
+  return player.playerType === "Bot"
+    ? player.elo ?? defaultElo
+    : defaultElo;
 }
 
 export default reducer;
