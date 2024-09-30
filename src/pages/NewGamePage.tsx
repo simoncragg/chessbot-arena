@@ -77,7 +77,7 @@ const NewGamePage: React.FC = () => {
       </div>
 
       {step === GAME_SETUP_STEP_SUMMARY && (
-        <div className="flex flex-col w-96 gap-2 items-start">
+        <div className="flex flex-col items-start gap-4 w-88 md:w-vh-minus-350">
 
           {boardOrientation === "white"
             ? <PlayerStatusBar player={black} onEditClick={() => onEditClick(black)} />
