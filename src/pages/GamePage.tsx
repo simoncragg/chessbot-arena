@@ -50,8 +50,8 @@ const GamePage: React.FC = () => {
       isFirstMoveRef.current = false;
 
       setTimeout(() => {
-        getNextMove({ fen, botId }, (move: string) => {
-          dispatch({ type: "MAKE_MOVE", payload: move });
+        getNextMove({ fen, botId }, result => {
+          dispatch({ type: "MAKE_MOVE", payload: result });
         });
       }, delayMs);
     }

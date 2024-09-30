@@ -1,13 +1,13 @@
 import type { Move } from "chess.js";
-import type { BoardOrientation, PieceMove } from "./types";
+import type { BoardOrientation, MakeMovePayload } from "./types";
 import type { 
   Action, 
   Captures, 
   CapturedPieceSymbol,
   ChessBot, 
-  PieceColor,
   DrawReasonType, 
-  GameState, 
+  GameState,
+  PieceColor,
   Player
 } from "./types";
 
@@ -99,12 +99,17 @@ function startGame(state: GameState) {
 }
 
 function makeMove(state: GameState, pieceMove: string | PieceMove) {
+function makeMove(state: GameState, payload: MakeMovePayload) {
+
+  if (payload.fen !== state.fen) {
+    return state;
+  }
 
   let move: Move | undefined;
   const chess = initChessObject(state.moveHistory);
 
   try {
-    move = chess.move(pieceMove);
+    move = chess.move(payload.move);
     console.log(`${state.activePlayer.colour} move: ${move.san}`);
     
     if (move === null) {

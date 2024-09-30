@@ -44,7 +44,7 @@ export const useHumanMove = () => {
       const move = createMove(sourceSquare, targetSquare, piece[1].toLowerCase());
 
       if (isValidMove(move, fen)) {
-        dispatch({ type: "MAKE_MOVE", payload: move });
+        dispatch({ type: "MAKE_MOVE", payload: {move, fen } });
         return true;
       }
     }
@@ -78,7 +78,7 @@ export const useHumanMove = () => {
     const move = createMove(moveFrom!.square, square);
 
     if (isValidMove(move, fen)) {
-      dispatch({ type: "MAKE_MOVE", payload: move });
+      dispatch({ type: "MAKE_MOVE", payload: { move, fen } });
     }
 
     return false;
@@ -97,7 +97,7 @@ export const useHumanMove = () => {
     const move = createMove(moveFrom.square, moveTo, piece[1].toLowerCase() ?? "q");
 
     if (isValidMove(move, fen)) {
-      dispatch({ type: "MAKE_MOVE", payload: move });
+      dispatch({ type: "MAKE_MOVE", payload: { move, fen } });
       return true;
     }
 

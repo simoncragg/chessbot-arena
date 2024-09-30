@@ -1,4 +1,9 @@
-async function getNextMove(args: { fen: string; botId: string }, callback: (move: string) => void) {
+interface GetNextMoveResult {
+  move: string;
+  fen: string;
+}
+
+async function getNextMove(args: { fen: string; botId: string }, callback: (result: GetNextMoveResult) => void) {
   const { fen, botId } = args;
   const response = await fetch("/.netlify/functions/botMove", {
     method: "POST",
@@ -7,8 +12,7 @@ async function getNextMove(args: { fen: string; botId: string }, callback: (move
   });
 
   const result = await response.json();
-  const { move } = result;
-  callback(move);
+  callback({ move: result.move, fen });
 }
 
 export default getNextMove;
