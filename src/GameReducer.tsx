@@ -5,7 +5,7 @@ import type {
   Captures, 
   CapturedPieceSymbol,
   ChessBot, 
-  ChessColour,
+  PieceColor,
   DrawReasonType, 
   GameState, 
   Player
@@ -137,7 +137,7 @@ function initChessObject(moveHistory: string[]): Chess {
 
 function getCaptures(
   state: GameState, 
-  capturer: ChessColour,
+  capturer: PieceColor,
   move?: Move
 ): Captures {
 

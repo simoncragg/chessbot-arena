@@ -1,5 +1,5 @@
 import type { PieceSymbol } from "chess.js";
-import type { CapturedPieces, ColoredChessPiece, Player  } from "../types";
+import type { CapturedPieces, PieceWithColor, Player  } from "../types";
 import React, { ReactNode } from "react";
 import { offBoardPieces } from "../svg/offBoardPieces";
 
@@ -10,23 +10,23 @@ interface CapturedPiecesTrayProps {
 
 const CapturedPiecesTray: React.FC<CapturedPiecesTrayProps> = ({ player, capturedPieces }) => {
   
-  const mapToColoredChessPieces = (
+  const mapToPieceWithColors = (
     capturedPieces: CapturedPieces, 
     pieceSymbol: PieceSymbol, 
-    player: Player): ColoredChessPiece [] => {
+    player: Player): PieceWithColor [] => {
 
     const colourSymbol = player.colour === "White" ? "b" : "w";
     const captureCount = capturedPieces[pieceSymbol as keyof CapturedPieces];
     
     return Array(captureCount)
-      .fill(`${colourSymbol}${pieceSymbol.toUpperCase()}`) as ColoredChessPiece[];
+      .fill(`${colourSymbol}${pieceSymbol.toUpperCase()}`) as PieceWithColor[];
   };
 
-  const pawns = mapToColoredChessPieces(capturedPieces, "p", player);
-  const knights = mapToColoredChessPieces(capturedPieces, "n", player);
-  const bishops = mapToColoredChessPieces(capturedPieces, "b", player);
-  const rooks = mapToColoredChessPieces(capturedPieces, "r", player);
-  const queens = mapToColoredChessPieces(capturedPieces, "q", player);
+  const pawns = mapToPieceWithColors(capturedPieces, "p", player);
+  const knights = mapToPieceWithColors(capturedPieces, "n", player);
+  const bishops = mapToPieceWithColors(capturedPieces, "b", player);
+  const rooks = mapToPieceWithColors(capturedPieces, "r", player);
+  const queens = mapToPieceWithColors(capturedPieces, "q", player);
  
   const pieceGroups = [
     { pieces: pawns, label: "pawns" },

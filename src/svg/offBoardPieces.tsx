@@ -1,4 +1,4 @@
-import { ColoredChessPiece  } from "../types";
+import { PieceWithColor  } from "../types";
 import { ReactNode } from "react";
 
 // https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces
@@ -9,7 +9,7 @@ import { ReactNode } from "react";
 //  - Applied a lighter stroke to all black pieces.
 //  - Simplified the knight, bishop and queen pieces.
 
-export const offBoardPieces: Record<ColoredChessPiece, ReactNode> = {
+export const offBoardPieces: Record<PieceWithColor, ReactNode> = {
   "wP": (
     <svg
       xmlns="http://www.w3.org/2000/svg"

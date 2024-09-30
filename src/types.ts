@@ -4,18 +4,11 @@ export type BoardOrientation = "white" | "black";
 export type BotType = "Custom" | "Resident";
 export type CapturedPieceSymbol = Exclude<PieceSymbol, "k">;
 export type CapturedPieces = Record<CapturedPieceSymbol, number>;
-export type ChessColour = "White" | "Black";
-export type ColoredChessPiece  = "wP" | "wB" | "wN" | "wR" | "wQ" | "wK" | "bP" | "bB" | "bN" | "bR" | "bQ" | "bK";
 export type DrawReasonType = "Stalemate" | "Threefold Repetition" | "Insufficient Material" | "50 Move Rule";
+export type PieceColor = "White" | "Black";
+export type PieceWithColor  = "wP" | "wB" | "wN" | "wR" | "wQ" | "wK" | "bP" | "bB" | "bN" | "bR" | "bQ" | "bK";
 export type PlayerType = "Bot" | "Human";
-
-export type Player = {
-  colour: ChessColour;
-  playerType: PlayerType;
-  name: string;
-  botId?: string;
-  elo?: number;
-};
+export type PromotionPieceOption = "wQ" | "wR" | "wN" | "wB" | "bQ" | "bR" | "bN" | "bB";
 
 export type GameState = {
   white: Player;
@@ -31,6 +24,14 @@ export type GameState = {
   isDraw: boolean;
   drawReason?: DrawReasonType;  
   chessBots: ChessBot[];
+};
+
+export type Player = {
+  colour: PieceColor;
+  playerType: PlayerType;
+  name: string;
+  botId?: string;
+  elo?: number;
 };
 
 export type ChessBot = {
