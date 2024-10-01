@@ -85,23 +85,25 @@ const GamePage: React.FC = () => {
   return (
     <div className="flex flex-col items-center w-full bg-neutral-900">
       <div className="flex justify-center bg-neutral-900 w-full">
-        <div className="flex flex-col gap-4 items-center w-96 md:w-vh-minus-300 relative">
+        <div className="flex flex-col gap-4 items-start w-96 md:w-vh-minus-300 relative">
           
-          {boardOrientation === "white" ? (
-            <PlayerStatusBar
-              player={black}
-              captures={blackCaptures}
-              opponentCaptures={whiteCaptures}
-              isThinking={activePlayer.colour === "Black" && isThinking}
-            />
-          ) : (
-            <PlayerStatusBar
-              player={white}
-              captures={whiteCaptures}
-              opponentCaptures={blackCaptures}
-              isThinking={activePlayer.colour === "White" && isThinking}
-            />
-          )}
+          <div className="px-5">
+            {boardOrientation === "white" ? (
+              <PlayerStatusBar
+                player={black}
+                captures={blackCaptures}
+                opponentCaptures={whiteCaptures}
+                isThinking={activePlayer.colour === "Black" && isThinking}
+              />
+            ) : (
+              <PlayerStatusBar
+                player={white}
+                captures={whiteCaptures}
+                opponentCaptures={blackCaptures}
+                isThinking={activePlayer.colour === "White" && isThinking}
+              />
+            )}
+          </div>
 
           <Chessboard
             boardOrientation={boardOrientation}
@@ -116,21 +118,23 @@ const GamePage: React.FC = () => {
             customSquareStyles={{ ...moveSquares }}
           />
 
-          {boardOrientation === "white" ? (
-            <PlayerStatusBar
-              player={white}
-              captures={whiteCaptures}
-              opponentCaptures={blackCaptures}
-              isThinking={activePlayer.colour === "White" && isThinking}
-            />
-          ) : (
-            <PlayerStatusBar
-              player={black}
-              captures={blackCaptures}
-              opponentCaptures={whiteCaptures}
-              isThinking={activePlayer.colour === "Black" && isThinking}
-            />
-          )}
+          <div className="px-5">
+            {boardOrientation === "white" ? (
+              <PlayerStatusBar
+                player={white}
+                captures={whiteCaptures}
+                opponentCaptures={blackCaptures}
+                isThinking={activePlayer.colour === "White" && isThinking}
+              />
+            ) : (
+              <PlayerStatusBar
+                player={black}
+                captures={blackCaptures}
+                opponentCaptures={whiteCaptures}
+                isThinking={activePlayer.colour === "Black" && isThinking}
+              />
+            )}
+          </div>
 
           {isGameOverModalOpen && (
             <GameOverModal

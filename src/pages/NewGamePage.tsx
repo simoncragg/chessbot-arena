@@ -79,17 +79,21 @@ const NewGamePage: React.FC = () => {
       {step === GAME_SETUP_STEP_SUMMARY && (
         <div className="flex flex-col items-start gap-4 w-88 md:w-vh-minus-350">
 
-          {boardOrientation === "white"
-            ? <PlayerStatusBar player={black} onEditClick={() => onEditClick(black)} />
-            : <PlayerStatusBar player={white} onEditClick={() => onEditClick(white)} />
-          }
+          <div className="px-2 w-full">
+            {boardOrientation === "white"
+              ? <PlayerStatusBar player={black} onEditClick={() => onEditClick(black)} />
+              : <PlayerStatusBar player={white} onEditClick={() => onEditClick(white)} />
+            }
+          </div>
           
           <Chessboard boardOrientation={boardOrientation} isDraggablePiece={() => false} />
 
-          {boardOrientation === "white"
-            ? <PlayerStatusBar player={white} onEditClick={() => onEditClick(white)} />
-            : <PlayerStatusBar player={black} onEditClick={() => onEditClick(black)} />
-          }
+          <div className="px-2 w-full">
+            {boardOrientation === "white"
+              ? <PlayerStatusBar player={white} onEditClick={() => onEditClick(white)} />
+              : <PlayerStatusBar player={black} onEditClick={() => onEditClick(black)} />
+            }
+          </div>
 
           <button 
             type="button" 

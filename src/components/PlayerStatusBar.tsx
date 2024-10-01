@@ -30,7 +30,7 @@ const PlayerStatusBar: React.FC<PlayerStatusBarProps> = ({
     : null;
 
   return (
-      <div className="flex flex-row items-center justify-between px-5 w-full">
+      <div className="flex flex-row items-center justify-between w-full">
 
         <div className="flex flex-row items-start gap-3 w-full">
           <Avatar player={player} className="w-12" />

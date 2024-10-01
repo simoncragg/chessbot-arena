@@ -17,7 +17,7 @@ const Layout = () => {
 
       {outlet}
 
-      <footer className="flex flex-col items-center mb-8 gap-8 w-full">
+      <footer className="flex flex-col items-center my-8 gap-8 w-full">
         <Netlify />
         <div className="flex flex-col items-center">
           <span className="text-base text-gray-200">Released under the MIT License.</span>
