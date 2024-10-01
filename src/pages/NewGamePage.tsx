@@ -97,7 +97,7 @@ const NewGamePage: React.FC = () => {
 
           <button 
             type="button" 
-            className="text-xl bg-green-700 border-b-4 border-green-900 p-2 rounded-md w-full mt-1"
+            className="text-xl bg-green-700 border-b-4 border-green-900 px-8 py-2 rounded-md w-full md:w-auto self-center mt-1"
             onClick={startGame}
           >
             Start Game
