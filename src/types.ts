@@ -51,7 +51,8 @@ export type PieceMove = {
   promotion?: string;
 };
 
-export type Action = { type: "SET_CHESSBOTS", payload: ChessBot[]; }
+export type Action = { type: "REHYDRATE_STATE", payload: GameState; }
+  | { type: "SET_CHESSBOTS", payload: ChessBot[]; }
   | { type: "SET_WHITE"; payload: Player; }
   | { type: "SET_BLACK"; payload: Player; }
   | { type: "RESET_GAME" }

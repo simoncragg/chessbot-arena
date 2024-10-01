@@ -17,6 +17,9 @@ const reducer = (state: GameState, action: Action): GameState => {
   
   switch (action.type) {
 
+    case "REHYDRATE_STATE":
+      return action.payload;
+
     case "SET_CHESSBOTS":
       return setChessBots(state, action.payload);
 
@@ -82,6 +85,11 @@ function resetGame(state: GameState) {
 }
 
 function startGame(state: GameState) {
+
+  if (state.moveHistory.length > 0) {
+    return state;
+  }
+
   const chess = new Chess();
 
   return { 
