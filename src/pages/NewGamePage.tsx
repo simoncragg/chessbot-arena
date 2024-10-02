@@ -59,45 +59,47 @@ const NewGamePage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center w-full">
 
-      <div className="flex flex-col md:flex-row gap-2 w-full">
-
-        {[white, black].map((p, i) => (
-          step === i+1 && (
-            <PlayerForm 
-              key={`playerForm-${i+1}`}
-              player={p} 
-              submitText={isEditMode ? "Update" : "Next"} 
-              onSubmit={updateState} 
-            />
-          )
-        ))}
-
-      </div>
+      {[white, black].map((p, i) => (
+        step === i+1 && (
+          <PlayerForm 
+            key={`playerForm-${i+1}`}
+            player={p} 
+            submitText={isEditMode ? "Update" : "Next"} 
+            onSubmit={updateState} 
+          />
+        )
+      ))}
 
       {step === GAME_SETUP_STEP_SUMMARY && (
-        <div className="flex flex-col items-start gap-4 w-88 md:w-vh-minus-350">
+        <div className="flex flex-col items-center pt-6 md:pt-0 px-2 md:px-4 gap-3 bg-neutral-800 rounded-md md:rounded-2xl w-96 md:w-[500px]">
 
-          <div className="px-2 w-full">
-            {boardOrientation === "white"
-              ? <PlayerStatusBar player={black} onEditClick={() => onEditClick(black)} />
-              : <PlayerStatusBar player={white} onEditClick={() => onEditClick(white)} />
-            }
-          </div>
-          
-          <Chessboard boardOrientation={boardOrientation} isDraggablePiece={() => false} />
+          <div className="flex flex-col w-full md:w-5/6 items-start gap-2">
 
-          <div className="px-2 w-full">
-            {boardOrientation === "white"
-              ? <PlayerStatusBar player={white} onEditClick={() => onEditClick(white)} />
-              : <PlayerStatusBar player={black} onEditClick={() => onEditClick(black)} />
-            }
+            <div className="px-2 -mt-2 md:mt-6 w-full">
+              {boardOrientation === "white"
+                ? <PlayerStatusBar player={black} onEditClick={() => onEditClick(black)} />
+                : <PlayerStatusBar player={white} onEditClick={() => onEditClick(white)} />
+              }
+            </div>
+            
+            <Chessboard boardOrientation={boardOrientation} isDraggablePiece={() => false} />
+
+            <div className="px-2 w-full">
+              {boardOrientation === "white"
+                ? <PlayerStatusBar player={white} onEditClick={() => onEditClick(white)} />
+                : <PlayerStatusBar player={black} onEditClick={() => onEditClick(black)} />
+              }
+            </div>
+
           </div>
+
+          <div className="border-t border-zinc-950 border-1 w-full"></div>
 
           <button 
             type="button" 
-            className="text-xl bg-green-700 border-b-4 border-green-900 px-8 py-2 rounded-md w-full md:w-auto self-center mt-1"
+            className="px-8 py-2 mt-0 md:mt-3 mb-3 md:mb-6 text-xl bg-green-700 hover:bg-green-800 border-b-4 border-green-900 rounded-md w-full md:w-5/6"
             onClick={startGame}
           >
             Start Game
