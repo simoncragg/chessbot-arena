@@ -1,7 +1,10 @@
 import type { Action, GameState, Player } from "./types";
+
 import React, { createContext, useContext, useEffect, useReducer } from "react";
 import { Chess } from "chess.js";
+
 import reducer from "./GameReducer";
+import { isIOSDevice } from "./utils";
 
 const LOCAL_STORAGE_KEY = "chessbot-arena-store-v1";
 
@@ -38,16 +41,34 @@ const loadStateFromLocalStorage = (initialState: GameState): GameState => {
   return storedState ? JSON.parse(storedState) : initialState;
 };
 
+const saveStateToLocalStorage = (state: GameState) => {
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state));
+};
+
 export const GameContextProvider = ({ children }: GameContextProviderType) => {
   
   const [state, dispatch] = useReducer(reducer, {}, () => loadStateFromLocalStorage(initialState));
 
   useEffect(() => {
-    const handlePageUnload = () => localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state));
-    window.addEventListener("beforeunload", handlePageUnload);
+
+    if (isIOSDevice() && state.moveHistory.length % 2 === 0) {
+      saveStateToLocalStorage(state);
+    }
+
+    const handlePageShow = (e: PageTransitionEvent) => {
+      if (e.persisted && isIOSDevice()) {
+        dispatch({ type: "REHYDRATE_STATE", payload: state});
+      }
+    };
+
+    const handlePageHide = () => saveStateToLocalStorage(state);
+
+    window.addEventListener("pageshow", handlePageShow);
+    window.addEventListener("pagehide", handlePageHide);
 
     return () => {
-      window.removeEventListener("beforeunload", handlePageUnload);
+      window.removeEventListener("pageshow", handlePageShow);
+      window.removeEventListener("pagehide", handlePageHide);
     };
   }, [state]);
 
