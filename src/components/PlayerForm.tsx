@@ -88,7 +88,7 @@ const PlayerForm: React.FC<PlayerFormProps> = ({ player, submitText, onSubmit })
   const pawnBgColour = player.colour === "White" ? "bg-black" : "bg-white/90";
 
   return (
-    <div className="flex flex-col px-4 pt-8 md:pt-10 text-neutral-300 bg-neutral-800 rounded-2xl w-96 md:w-[500px]">
+    <div className="flex flex-col px-4 pt-8 md:pt-10 text-neutral-300 bg-neutral-800 rounded-2xl w-96 md:w-[470px]">
         
       <div className="flex flex-col items-center gap-2 w-full">
         <div className={`p-2 ${pawnBgColour} rounded-full`}>
