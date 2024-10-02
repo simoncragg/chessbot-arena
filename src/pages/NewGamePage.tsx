@@ -75,7 +75,7 @@ const NewGamePage: React.FC = () => {
       {step === GAME_SETUP_STEP_SUMMARY && (
         <div className="flex flex-col items-center pt-6 md:pt-0 px-2 md:px-4 gap-3 bg-neutral-800 rounded-md md:rounded-2xl w-96 md:w-[500px]">
 
-          <div className="flex flex-col w-full md:w-5/6 items-start gap-2">
+          <div className="flex flex-col items-start gap-2 w-full md:w-5/6">
 
             <div className="px-2 -mt-2 md:mt-6 w-full">
               {boardOrientation === "white"
