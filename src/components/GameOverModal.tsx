@@ -93,7 +93,7 @@ const GameOverModal: React.FC<GameOverModalProps> = ({ onRematch, onClose }) => 
 
           <button 
             onClick={handleRematch}
-            className="font-semibold text-xl bg-green-700 border-b-4 border-green-900 rounded-md p-2 w-full"
+            className="font-semibold text-xl bg-green-700 hover:bg-green-800 border-b-4 border-green-900 rounded-md p-2 w-full"
           >
             Rematch
           </button>
