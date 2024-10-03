@@ -88,27 +88,26 @@ const PlayerForm: React.FC<PlayerFormProps> = ({ player, submitText, onSubmit })
   const pawnBgColour = player.colour === "White" ? "bg-black" : "bg-white/90";
 
   return (
-    <div className="flex flex-col px-4 pt-8 md:pt-10 text-neutral-300 bg-neutral-800 rounded-2xl w-96 md:w-[470px]">
+    <div className="flex flex-col pt-8 md:pt-10 text-neutral-300 bg-neutral-800 rounded-2xl w-96 md:w-[500px]">
         
       <div className="flex flex-col items-center gap-2 w-full">
         <div className={`p-2 ${pawnBgColour} rounded-full`}>
-          <GiPawn className={`w-12 md:w-14 h-12 md:h14 ${pawnTextColour}`} />
+          <GiPawn className={`w-12 md:w-14 h-12 md:h-14 ${pawnTextColour}`} />
         </div>
         <span className="font-cinzel font-semibold text-2xl">{player.colour}</span>
       </div>
 
       <form
-        className="flex flex-col gap-4 mt-8"
+        className="flex flex-col items-center mt-12 gap-4"
         noValidate
         onSubmit={handleSubmit(onFormSubmit)}
       >
-        <div className="flex flex-col px-4 md:px-12 gap-6 w-full">
+        <div className="flex flex-col items-center justify-center gap-6 md:gap-8 w-5/6 md:w-3/4">
 
-          <div className="inline-flex items-end justify-between rounded-md w-full" role="group"
-          >
+          <div className="inline-flex rounded-md w-full" role="group">
             <button
               type="button"
-              className={`inline-flex items-end justify-center w-full px-4 py-2 text-base font-medium text-white ${
+              className={`inline-flex items-end justify-center px-4 py-2 text-base font-medium text-white w-full h-20 ${
                 playerType === "Bot" ? "bg-stone-500" : "bg-neutral-800"
               } border border-gray-200 rounded-s-lg focus:z-10 focus:ring-1 focus:ring-blue-500 focus:border-blue-500`}
               onClick={() => {
@@ -124,7 +123,7 @@ const PlayerForm: React.FC<PlayerFormProps> = ({ player, submitText, onSubmit })
 
             <button
               type="button"
-              className={`inline-flex items-end justify-center w-full px-4 py-2 text-base font-medium text-white ${
+              className={`inline-flex items-end justify-center px-4 py-2 text-base font-medium text-white w-full h-20 ${
                 playerType === "Human" ? "bg-stone-500" : "bg-neutral-800"
               } border border-gray-200 rounded-e-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500`}
               onClick={() => {
@@ -132,15 +131,15 @@ const PlayerForm: React.FC<PlayerFormProps> = ({ player, submitText, onSubmit })
                 setValue("botId", "");
               }}
             >
-              <div className="flex flex-col gap-1.5 items-center">
-                <FaUser className="w-7 md:-w-8 h-7 md:h-8 mt-0.5" />
+              <div className="flex flex-col items-center gap-1.5">
+                <FaUser className="w-7 md:-w-8 h-7 md:h-8" />
                 Human
               </div>
             </button>
           </div>
 
           {playerType === "Bot" && (
-            <div className="flex flex-col mt-0">
+            <div className="flex flex-col mt-0 w-full">
 
               <label className="block mb-2 text-base font-medium text-white">
                 Bot
@@ -174,7 +173,7 @@ const PlayerForm: React.FC<PlayerFormProps> = ({ player, submitText, onSubmit })
           )}
 
           {playerType === "Human" && (
-            <div>
+            <div className="w-full">
               <label htmlFor="name" className="block mb-2 text-base font-medium text-white">
                 Name
               </label>
@@ -197,13 +196,13 @@ const PlayerForm: React.FC<PlayerFormProps> = ({ player, submitText, onSubmit })
           )}
         </div>
 
-        <div className="border-t border-zinc-950 border-1 -mt-2 mb-4"></div>
+        <div className="border-t border-zinc-950 border-1 -mt-2 mb-2 w-full"></div>
 
-        <div className="flex flex-col pb-8 px-4 md:px-12 w-full">
+        <div className="flex flex-col pb-6 items-center w-5/6 md:w-7/12">
 
           <button
             type="submit"
-            className="font-semibold text-xl bg-blue-700 hover:bg-blue-800 border-b-4 border-blue-900 p-2 rounded-md w-full"
+            className="p-2 font-semibold text-xl bg-blue-700 hover:bg-blue-800 border-b-4 border-blue-900 rounded-md w-full"
           >
             {submitText}
           </button>
