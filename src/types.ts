@@ -57,7 +57,8 @@ export type Action = { type: "REHYDRATE_STATE", payload: GameState; }
   | { type: "SET_BLACK"; payload: Player; }
   | { type: "RESET_GAME" }
   | { type: "START_GAME"; }
-  | { type: "MAKE_MOVE"; payload: MakeMovePayload };
+  | { type: "MAKE_MOVE"; payload: MakeMovePayload } 
+  | { type: "REMATCH"; };
 
 export type MakeMovePayload = {
   move: string | PieceMove;

@@ -140,8 +140,8 @@ const GamePage: React.FC = () => {
             <GameOverModal
               onRematch={() => {
                 setMoveSquares({});
-                dispatch({ type: "START_GAME" })}
-              }
+                dispatch({ type: "REMATCH" });
+              }}
               onClose={() => setIsGameOverModalOpen(false)}
             />
           )}

@@ -38,6 +38,9 @@ const reducer = (state: GameState, action: Action): GameState => {
     case "MAKE_MOVE":
       return makeMove(state, action.payload);
 
+    case "REMATCH":
+      return rematch(state);
+
     default:
       return state;
   }
@@ -139,6 +142,10 @@ function makeMove(state: GameState, payload: MakeMovePayload) {
     isDraw: chess.isDraw(),
     drawReason: mapToDrawReason(chess)
   };
+}
+
+function rematch(state: GameState) {
+  return startGame({ ...state, moveHistory: []});
 }
 
 function initChessObject(moveHistory: string[]): Chess {
