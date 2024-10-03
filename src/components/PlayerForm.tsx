@@ -102,7 +102,7 @@ const PlayerForm: React.FC<PlayerFormProps> = ({ player, submitText, onSubmit })
         noValidate
         onSubmit={handleSubmit(onFormSubmit)}
       >
-        <div className="flex flex-col items-center justify-center gap-6 md:gap-8 w-5/6 md:w-3/4">
+        <div className="flex flex-col items-center justify-center gap-6 md:gap-8 w-5/6 md:w-2/3">
 
           <div className="inline-flex rounded-md w-full" role="group">
             <button
@@ -198,7 +198,7 @@ const PlayerForm: React.FC<PlayerFormProps> = ({ player, submitText, onSubmit })
 
         <div className="border-t border-zinc-950 border-1 -mt-2 mb-2 w-full"></div>
 
-        <div className="flex flex-col pb-6 items-center w-5/6 md:w-7/12">
+        <div className="flex flex-col pb-6 items-center w-5/6 md:w-2/3">
 
           <button
             type="submit"

@@ -73,9 +73,9 @@ const NewGamePage: React.FC = () => {
       ))}
 
       {step === GAME_SETUP_STEP_SUMMARY && (
-        <div className="flex flex-col items-center pt-6 md:pt-0 gap-3 bg-neutral-800 rounded-md md:rounded-2xl w-96 md:w-[600px]">
+        <div className="flex flex-col items-center pt-6 md:pt-0 gap-3 bg-neutral-800 rounded-md md:rounded-2xl w-96 md:w-[500px]">
 
-          <div className="flex flex-col items-start gap-2 md:gap-4 w-5/6 md:w-7/12">
+          <div className="flex flex-col items-start gap-2 md:gap-4 w-5/6 md:w-2/3">
 
             <div className="px-2 -mt-2 md:mt-6 w-full">
               {boardOrientation === "white"
@@ -99,7 +99,7 @@ const NewGamePage: React.FC = () => {
 
           <button 
             type="button" 
-            className="px-8 py-2 mt-0 md:mt-3 mb-3 md:mb-6 text-xl bg-green-700 hover:bg-green-800 border-b-4 border-green-900 rounded-md w-5/6 md:w-1/2"
+            className="px-8 py-2 mt-0 md:mt-3 mb-3 md:mb-6 text-xl bg-green-700 hover:bg-green-800 border-b-4 border-green-900 rounded-md w-5/6 md:w-2/3"
             onClick={startGame}
           >
             Start Game
