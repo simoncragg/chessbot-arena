@@ -128,6 +128,7 @@ function makeMove(state: GameState, payload: MakeMovePayload) {
   }
   catch (err: unknown) {
     console.log(err, {state});
+    throw err;
   }
 
   return { 
