@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { FaChevronDown, FaChevronRight } from "react-icons/fa";
 
 import ErrorSrc from '../assets/error-min.png';
+import Footer from "../components/Footer";
 
 const ErrorPage: React.FC<FallbackProps> = ({ error, resetErrorBoundary }) => {
   
@@ -45,6 +46,8 @@ const ErrorPage: React.FC<FallbackProps> = ({ error, resetErrorBoundary }) => {
           <pre style={{ color: "red" }}>{error.message}</pre>
         )}
       </div>
+
+      <Footer />
 
     </div>
   );
