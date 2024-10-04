@@ -5,8 +5,7 @@ import { Chess } from "chess.js";
 
 import reducer from "./GameReducer";
 import { isIOSDevice } from "./utils";
-
-const LOCAL_STORAGE_KEY = "chessbot-arena-store-v1";
+import { loadStateFromLocalStorage, saveStateToLocalStorage } from "./services/stateStore";
 
 type GameContextType = {
   state: GameState;
@@ -34,15 +33,6 @@ const initialState: GameState = {
   isDraw: false,
   chessBots: [],
   boardOrientation: "white"
-};
-
-const loadStateFromLocalStorage = (initialState: GameState): GameState => {
-  const storedState = localStorage.getItem(LOCAL_STORAGE_KEY);
-  return storedState ? JSON.parse(storedState) : initialState;
-};
-
-const saveStateToLocalStorage = (state: GameState) => {
-  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state));
 };
 
 export const GameContextProvider = ({ children }: GameContextProviderType) => {

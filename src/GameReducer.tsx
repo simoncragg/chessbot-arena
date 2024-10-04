@@ -12,6 +12,7 @@ import type {
 } from "./types";
 
 import { Chess } from "chess.js";
+import { saveStateToLocalStorage } from "./services/stateStore";
 
 const reducer = (state: GameState, action: Action): GameState => {
   
@@ -127,6 +128,7 @@ function makeMove(state: GameState, payload: MakeMovePayload) {
     }
   }
   catch (err: unknown) {
+    saveStateToLocalStorage(state);
     console.log(err, {state});
     throw err;
   }
