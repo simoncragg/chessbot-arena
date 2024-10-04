@@ -2,6 +2,7 @@ import type { FallbackProps } from "react-error-boundary";
 import React, { useState } from "react";
 import { FaChevronDown, FaChevronRight } from "react-icons/fa";
 
+import Button from "../components/Button";
 import ErrorSrc from '../assets/error-min.png';
 import Footer from "../components/Footer";
 
@@ -25,13 +26,13 @@ const ErrorPage: React.FC<FallbackProps> = ({ error, resetErrorBoundary }) => {
       <div role="alert" className="flex flex-col items-center gap-8">
         <h1 className="text-2xl text-white">Eeh, by 'eck!</h1>
         <img src={ErrorSrc} className="rounded-lg" alt="Surprised Pawn" />
-        <button
+        <Button
           type="button"
-          className="py-2 px-4 text-base text-white font-semibold border border-gray-300 rounded-md"
+          variant="tertiary"
           onClick={resetErrorBoundary}
         >
           Try again
-        </button>
+        </Button>
 
         <button
           type="button"

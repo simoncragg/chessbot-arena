@@ -1,10 +1,11 @@
+import Fireworks from "react-canvas-confetti/dist/presets/fireworks";
 import React, { useState, useRef } from "react";
 import { MdClose } from "react-icons/md";
 import { useSpring, animated } from "@react-spring/web";
 
-import Fireworks from "react-canvas-confetti/dist/presets/fireworks";
-import { useGame } from "../GameContext";
 import Avatar from "./Avatar";
+import Button from "./Button";
+import { useGame } from "../GameContext";
 
 interface GameOverModalProps {
   onRematch: () => void;
@@ -91,12 +92,15 @@ const GameOverModal: React.FC<GameOverModalProps> = ({ onRematch, onClose }) => 
             </>
           )}
 
-          <button 
+          <Button 
+            type="button" 
+            variant="primary"
+            width="w-full" 
             onClick={handleRematch}
-            className="font-semibold text-xl bg-green-700 hover:bg-green-800 border-b-4 border-green-900 rounded-md p-2 w-full"
           >
             Rematch
-          </button>
+          </Button>
+
         </animated.div>
       </div>
     </>

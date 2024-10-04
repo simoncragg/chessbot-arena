@@ -1,5 +1,6 @@
 import { Chessboard } from "react-chessboard";
 import { useNavigate } from "react-router-dom";
+import Button from "../components/Button";
 
 const LandingPage = () => {
   
@@ -12,13 +13,14 @@ const LandingPage = () => {
 
           <div className="flex flex-col w-96 gap-8">
             <Chessboard isDraggablePiece={() => false} />
-            <button 
+            <Button 
               type="button" 
-              className="font-cinzel font-semibold text-xl bg-green-700 hover:bg-green-800 border-b-4 border-green-900 rounded-md p-2 w-full"
+              variant="primary" 
+              width="w-full"
               onClick={() => navigate("/new-game")}
             >
-              New Game
-            </button>
+              <span className="font-cinzel">New Game</span>
+            </Button>
           </div>
         </div>
     </div>

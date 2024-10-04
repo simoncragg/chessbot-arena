@@ -5,6 +5,7 @@ import { FaEdit } from "react-icons/fa";
 import CapturedPiecesTray from "./CapturedPiecesTray";
 import Avatar from "./Avatar";
 import Pulse from "./Pulse";
+import Button from "./Button";
 
 interface PlayerStatusBarProps {
   player: Player,
@@ -56,14 +57,15 @@ const PlayerStatusBar: React.FC<PlayerStatusBarProps> = ({
         </div>
 
         {onEditClick && ( 
-          <button 
-            type="button" 
-            className="flex flex-row gap-2.5 px-3 py-1.5 items-center border border-neutral-500 rounded-md"
+          <Button
+            type="button"
+            variant="tertiary"
+            padding="tight"
             onClick={onEditClick}
           >
             <span className="text-base font-normal">Edit</span>
             <FaEdit className="w-5 h-5" />
-          </button>
+          </Button>
         )}
         
       </div>

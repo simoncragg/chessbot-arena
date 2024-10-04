@@ -5,6 +5,7 @@ import { GiPawn } from "react-icons/gi";
 import { TbLoader2 } from "react-icons/tb";
 import { useForm } from "react-hook-form";
 
+import Button from "./Button";
 import ChessBotSelector from "../components/ChessBotSelector";
 import getBots from "../services/getBots";
 import { isValidPlayer } from "../utils";
@@ -98,7 +99,7 @@ const PlayerForm: React.FC<PlayerFormProps> = ({ player, submitText, onSubmit })
       </div>
 
       <form
-        className="flex flex-col items-center mt-12 gap-4"
+        className="flex flex-col items-center mt-12 mb-6 gap-4"
         noValidate
         onSubmit={handleSubmit(onFormSubmit)}
       >
@@ -198,15 +199,7 @@ const PlayerForm: React.FC<PlayerFormProps> = ({ player, submitText, onSubmit })
 
         <div className="border-t border-zinc-950 border-1 -mt-2 mb-2 w-full"></div>
 
-        <div className="flex flex-col pb-6 items-center w-5/6 md:w-2/3">
-
-          <button
-            type="submit"
-            className="p-2 font-semibold text-xl bg-blue-700 hover:bg-blue-800 border-b-4 border-blue-900 rounded-md w-full"
-          >
-            {submitText}
-          </button>
-        </div>
+        <Button type="submit" variant="secondary" width="w-5/6 md:w-2/3">{submitText}</Button>
 
       </form>
     </div>
