@@ -10,6 +10,11 @@ export type PieceWithColor  = "wP" | "wB" | "wN" | "wR" | "wQ" | "wK" | "bP" | "
 export type PlayerType = "Bot" | "Human";
 export type PromotionPieceOption = "wQ" | "wR" | "wN" | "wB" | "bQ" | "bR" | "bN" | "bB";
 
+export type AppState = {
+  game: GameState;
+  chessBots: ChessBot[];
+};
+
 export type GameState = {
   white: Player;
   black: Player;
@@ -22,8 +27,7 @@ export type GameState = {
   blackCaptures: Captures,
   isGameOver: boolean;
   isDraw: boolean;
-  drawReason?: DrawReasonType;  
-  chessBots: ChessBot[];
+  drawReason?: DrawReasonType;
 };
 
 export type Player = {
@@ -51,7 +55,7 @@ export type PieceMove = {
   promotion?: string;
 };
 
-export type Action = { type: "REHYDRATE_STATE", payload: GameState; }
+export type Action = { type: "REHYDRATE_STATE", payload: AppState; }
   | { type: "SET_CHESSBOTS", payload: ChessBot[]; }
   | { type: "SET_WHITE"; payload: Player; }
   | { type: "SET_BLACK"; payload: Player; }

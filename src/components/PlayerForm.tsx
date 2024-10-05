@@ -9,7 +9,7 @@ import LoadingSpinner from "./LoadingSpinner";
 import PlayerTypeButtonGroup from "./PlayerTypeButtonGroup";
 import getBots from "../services/getBots";
 import { isValidPlayer } from "../utils";
-import { useGame } from "../GameContext";
+import { useApp } from "../AppContext";
 
 interface PlayerFormProps {
   player: Player;
@@ -24,7 +24,7 @@ interface FormData {
 }
 
 const PlayerForm: React.FC<PlayerFormProps> = ({ player, submitText, onSubmit }) => {
-  const { state, dispatch } = useGame();
+  const { state, dispatch } = useApp();
   const { chessBots } = state;
 
   const formProps = {

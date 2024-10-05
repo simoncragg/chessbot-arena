@@ -5,13 +5,13 @@ import { useState } from "react";
 
 import { MOVE_HIGHLIGHT_COLOR } from "../constants";
 import { isValidMove } from "../utils";
-import { useGame } from "../GameContext";
+import { useGame } from "../AppContext";
 
 type MoveSquares = Partial<Record<Square, { background: string }>>;
 
 export const useHumanMove = () => {
-  const { state, dispatch } = useGame();
-  const { fen, activePlayer } = state;
+  const { game, dispatch } = useGame();
+  const { fen, activePlayer } = game;
 
   const [moveFrom, setMoveFrom] = useState<{ square: Square, piece: PieceWithColor} | null>(null);
   const [moveTo, setMoveTo] = useState<Square | null>(null);

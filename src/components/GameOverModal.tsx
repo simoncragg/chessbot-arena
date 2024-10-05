@@ -5,7 +5,7 @@ import { useSpring, animated } from "@react-spring/web";
 
 import Avatar from "./Avatar";
 import Button from "./Button";
-import { useGame } from "../GameContext";
+import { useGame } from "../AppContext";
 
 interface GameOverModalProps {
   onRematch: () => void;
@@ -14,8 +14,8 @@ interface GameOverModalProps {
 
 const GameOverModal: React.FC<GameOverModalProps> = ({ onRematch, onClose }) => {
 
-  const { state } = useGame();
-  const { white, black, isDraw, drawReason, activePlayer } = state;
+  const { game } = useGame();
+  const { white, black, isDraw, drawReason, activePlayer } = game;
 
   const [isClosing, setIsClosing] = useState<boolean>(false);
   const [isRematchRequested, setIsRematchRequested] = useState<boolean>(false);

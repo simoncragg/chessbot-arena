@@ -4,7 +4,7 @@ import { createRoot } from "react-dom/client";
 
 import App from "./App.tsx";
 import ErrorPage from "./pages/ErrorPage.tsx";
-import { GameContextProvider } from "./GameContext";
+import { AppContextProvider } from "./AppContext";
 import "./index.css";
 
 createRoot(document.getElementById('root')!).render(
@@ -12,9 +12,9 @@ createRoot(document.getElementById('root')!).render(
     <ErrorBoundary fallbackRender={({ error, resetErrorBoundary }) => 
       <ErrorPage error={error} resetErrorBoundary={resetErrorBoundary} />
     }>
-      <GameContextProvider>
+      <AppContextProvider>
         <App />
-      </GameContextProvider>
+      </AppContextProvider>
     </ErrorBoundary>
   </StrictMode>
 );

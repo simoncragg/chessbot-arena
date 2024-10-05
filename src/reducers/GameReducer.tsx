@@ -1,27 +1,20 @@
 import type { Move } from "chess.js";
-import type { BoardOrientation, MakeMovePayload } from "./types";
+import type { BoardOrientation, MakeMovePayload } from "../types";
 import type { 
   Action, 
   Captures, 
   CapturedPieceSymbol,
-  ChessBot, 
   DrawReasonType, 
   GameState,
   PieceColor,
   Player
-} from "./types";
+} from "../types";
 
 import { Chess } from "chess.js";
 
 const reducer = (state: GameState, action: Action): GameState => {
   
   switch (action.type) {
-
-    case "REHYDRATE_STATE":
-      return action.payload;
-
-    case "SET_CHESSBOTS":
-      return setChessBots(state, action.payload);
 
     case "SET_WHITE":
       return setWhite(state, action.payload);
@@ -45,10 +38,6 @@ const reducer = (state: GameState, action: Action): GameState => {
       return state;
   }
 };
-
-function setChessBots(state: GameState, payload: ChessBot[]) {
-  return { ...state, chessBots: payload };
-}
 
 function setWhite(state: GameState, white: Player) {
   return { 

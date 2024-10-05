@@ -6,11 +6,11 @@ import PlayerStatusBar from "../components/PlayerStatusBar";
 import getNextMove from "../services/getNextMove";
 import { MOVE_HIGHLIGHT_COLOR } from "../constants";
 import { getRandomInt } from "../utils";
-import { useGame } from "../GameContext";
+import { useGame } from "../AppContext";
 import { useHumanMove } from "../hooks/useHumanMove";
 
 const GamePage: React.FC = () => {
-  const { state, dispatch } = useGame();
+  const { game, dispatch } = useGame();
 
   const {
     boardOrientation,
@@ -22,7 +22,7 @@ const GamePage: React.FC = () => {
     whiteCaptures,
     blackCaptures,
     isGameOver,
-  } = state;
+  } = game;
 
   const {
     isDraggablePiece,

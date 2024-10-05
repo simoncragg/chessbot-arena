@@ -5,10 +5,10 @@ import { Chessboard } from "react-chessboard";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
+import Button from "../components/Button";
 import PlayerForm from "../components/PlayerForm";
 import PlayerStatusBar from "../components/PlayerStatusBar";
-import { useGame } from "../GameContext";
-import Button from "../components/Button";
+import { useGame } from "../AppContext";
 
 const GAME_SETUP_STEP_WHITE_PLAYER = 1;
 const GAME_SETUP_STEP_BLACK_PLAYER = 2;
@@ -17,8 +17,8 @@ const GAME_SETUP_STEP_SUMMARY = 3;
 const NewGamePage: React.FC = () => {
   
   const navigate = useNavigate();
-  const { state, dispatch } = useGame();
-  const { white, black, boardOrientation } = state;
+  const { game, dispatch } = useGame();
+  const { white, black, boardOrientation } = game;
 
   const [step, setStep] = useState<number>(GAME_SETUP_STEP_WHITE_PLAYER);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
