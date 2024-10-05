@@ -1,11 +1,10 @@
 import type { Action, GameState, Player } from "./types";
 
-import React, { createContext, useContext, useEffect, useReducer } from "react";
+import React, { createContext, useContext, useEffect, useReducer, useRef } from "react";
 import { Chess } from "chess.js";
 
 import reducer from "./GameReducer";
-import { isIOSDevice } from "./utils";
-import { loadStateFromLocalStorage, saveStateToLocalStorage } from "./services/stateStore";
+import * as stateStore from "./services/stateStore";
 
 type GameContextType = {
   state: GameState;
@@ -37,29 +36,14 @@ const initialState: GameState = {
 
 export const GameContextProvider = ({ children }: GameContextProviderType) => {
   
-  const [state, dispatch] = useReducer(reducer, {}, () => loadStateFromLocalStorage(initialState));
+  const [state, dispatch] = useReducer(reducer, {}, () => stateStore.load(initialState));
+  const lastFenRef = useRef(state.fen);
 
   useEffect(() => {
-
-    if (isIOSDevice() && state.moveHistory.length % 2 === 0) {
-      saveStateToLocalStorage(state);
+    if (state.fen !== lastFenRef.current) {
+      stateStore.save(state);
+      lastFenRef.current = state.fen;
     }
-
-    const handlePageShow = (e: PageTransitionEvent) => {
-      if (e.persisted && isIOSDevice()) {
-        dispatch({ type: "REHYDRATE_STATE", payload: state});
-      }
-    };
-
-    const handlePageHide = () => saveStateToLocalStorage(state);
-
-    window.addEventListener("pageshow", handlePageShow);
-    window.addEventListener("pagehide", handlePageHide);
-
-    return () => {
-      window.removeEventListener("pageshow", handlePageShow);
-      window.removeEventListener("pagehide", handlePageHide);
-    };
   }, [state]);
 
   return (

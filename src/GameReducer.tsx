@@ -12,7 +12,6 @@ import type {
 } from "./types";
 
 import { Chess } from "chess.js";
-import { saveStateToLocalStorage } from "./services/stateStore";
 
 const reducer = (state: GameState, action: Action): GameState => {
   
@@ -116,28 +115,20 @@ function makeMove(state: GameState, payload: MakeMovePayload) {
     return state;
   }
 
-  let move: Move | undefined;
   const chess = initChessObject(state.moveHistory);
-
-  try {
-    move = chess.move(payload.move);
-    console.log(`${state.activePlayer.colour} move: ${move.san}`);
+  const move = chess.move(payload.move);
     
-    if (move === null) {
-      throw new Error("Invalid move");
-    }
+  if (move === null) {
+    throw new Error("Invalid move");
   }
-  catch (err: unknown) {
-    saveStateToLocalStorage(state);
-    console.log(err, {state});
-    throw err;
-  }
+
+  console.log(`${state.activePlayer.colour} move: ${move.san}`);
 
   return { 
     ...state,
     fen: chess.fen(),
     lastMove: move,
-    moveHistory: [... state.moveHistory, move!.san],
+    moveHistory: [... state.moveHistory, move.san],
     activePlayer: getActivePlayer(chess, state),
     whiteCaptures: getCaptures(state, "White", move),
     blackCaptures: getCaptures(state, "Black", move),

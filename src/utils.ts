@@ -1,10 +1,6 @@
 import type { PieceMove, Player } from "./types";
 import { Chess } from "chess.js";
 
-export function isIOSDevice() {
-  return /iPad|iPhone|iPod/.test(navigator.userAgent)
-};
-
 export function isValidPlayer(player: Player) {
 
   if (!player) {
