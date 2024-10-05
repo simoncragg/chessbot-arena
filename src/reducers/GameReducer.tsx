@@ -1,5 +1,5 @@
 import type { Move } from "chess.js";
-import type { BoardOrientation, MakeMovePayload } from "../types";
+import type { BoardOrientation, MakeMovePayload, MoveHistoryEntry } from "../types";
 import type { 
   Action, 
   Captures, 
@@ -114,12 +114,18 @@ function makeMove(state: GameState, payload: MakeMovePayload) {
   }
 
   console.log(`${state.activePlayer.colour} move: ${move.san}`);
+  
+  const fen = chess.fen();
+  const moveHistoryEntry = { 
+    move: move.san, 
+    postMoveFen: fen
+  };
 
   return { 
     ...state,
-    fen: chess.fen(),
+    fen,
     lastMove: move,
-    moveHistory: [... state.moveHistory, move.san],
+    moveHistory: [...state.moveHistory, moveHistoryEntry],
     activePlayer: getActivePlayer(chess, state),
     whiteCaptures: getCaptures(state, "White", move),
     blackCaptures: getCaptures(state, "Black", move),
@@ -133,9 +139,9 @@ function rematch(state: GameState) {
   return startGame({ ...state, moveHistory: []});
 }
 
-function initChessObject(moveHistory: string[]): Chess {
+function initChessObject(moveHistory: MoveHistoryEntry[]): Chess {
   const chess = new Chess();
-  moveHistory.forEach(move => chess.move(move));
+  moveHistory.forEach(({ move }) => chess.move(move));
   return chess;
 }
 

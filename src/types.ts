@@ -22,7 +22,7 @@ export type GameState = {
   boardOrientation: BoardOrientation;
   fen: string;
   lastMove?: PieceMove;
-  moveHistory: string[];
+  moveHistory: MoveHistoryEntry[];
   activePlayer: Player;
   whiteCaptures: Captures,
   blackCaptures: Captures,
@@ -31,18 +31,18 @@ export type GameState = {
   drawReason?: DrawReasonType;
 };
 
+export type ChessBot = {
+  id: string;
+  name: string;
+  elo: number;
+};
+
 export type Player = {
   colour: PieceColor;
   playerType: PlayerType;
   name: string;
   botId?: string;
   elo?: number;
-};
-
-export type ChessBot = {
-  id: string;
-  name: string;
-  elo: number;
 };
 
 export type Captures = {
@@ -54,6 +54,11 @@ export type PieceMove = {
   from: string;
   to: string;
   promotion?: string;
+};
+
+export type MoveHistoryEntry = {
+  move: string;
+  postMoveFen: string;
 };
 
 export type Action = { type: "REHYDRATE_STATE", payload: AppState; }
