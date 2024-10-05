@@ -1,11 +1,11 @@
 import type { ChessBot, Player, PlayerType } from "../types";
 import React, { useEffect } from "react";
 import { GiPawn } from "react-icons/gi";
-import { TbLoader2 } from "react-icons/tb";
 import { useForm } from "react-hook-form";
 
 import Button from "./Button";
 import ChessBotSelector from "./ChessBotSelector";
+import LoadingSpinner from "./LoadingSpinner";
 import PlayerTypeButtonGroup from "./PlayerTypeButtonGroup";
 import getBots from "../services/getBots";
 import { isValidPlayer } from "../utils";
@@ -142,7 +142,7 @@ const PlayerForm: React.FC<PlayerFormProps> = ({ player, submitText, onSubmit })
                   }}
                 />
               ) : (
-                <LoadingBar />
+                <LoadingSpinner />
               )}
               
               <div className="h-6 mt-2">
@@ -182,15 +182,6 @@ const PlayerForm: React.FC<PlayerFormProps> = ({ player, submitText, onSubmit })
         <Button type="submit" variant="secondary" width="w-5/6 md:w-2/3">{submitText}</Button>
 
       </form>
-    </div>
-  );
-};
-
-const LoadingBar: React.FC = () => {
-  return (
-    <div className="flex flex-row rounded-md border border-white px-4 py-2 gap-2 items-center justify-between">
-      <span className="text-base font-semibold">Loading bots ...</span>
-      <TbLoader2 className="w-6 h-6 text-white rounded-full animate-spin" />
     </div>
   );
 };
