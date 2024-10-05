@@ -16,6 +16,7 @@ export type AppState = {
 };
 
 export type GameState = {
+  isActive: boolean,
   white: Player;
   black: Player;
   boardOrientation: BoardOrientation;

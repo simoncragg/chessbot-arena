@@ -22,6 +22,7 @@ const black: Player = { colour: "Black", playerType: "Bot", name: "" };
 
 const initialState: AppState = {
   game: {
+    isActive: false,
     white,
     black,
     fen: new Chess().fen(),
@@ -46,7 +47,7 @@ export const AppContextProvider = ({ children }: AppContextProviderType) => {
   const lastFenRef = useRef(state.game.fen);
 
   useEffect(() => {
-    if (state.game.fen !== lastFenRef.current) {
+    if (state.game.isActive && state.game.fen !== lastFenRef.current) {
       stateStore.save(state.game);
     }
   }, [state]);

@@ -62,6 +62,7 @@ function resetGame(state: GameState) {
 
   return { 
     ...state,
+    isActive: false,
     fen: chess.fen(),
     white,
     black,
@@ -86,6 +87,7 @@ function startGame(state: GameState) {
 
   return { 
     ...state,
+    isActive: true,
     fen: chess.fen(),
     lastMove: undefined,
     moveHistory: [],
