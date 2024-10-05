@@ -22,11 +22,11 @@ const reducer = (state: GameState, action: Action): GameState => {
     case "SET_BLACK":
       return setBlack(state, action.payload);
 
-    case "START_GAME":
-      return startGame(state);
-
     case "RESET_GAME":
       return resetGame(state);
+    
+    case "START_GAME":
+      return startGame(state);
 
     case "MAKE_MOVE":
       return makeMove(state, action.payload);

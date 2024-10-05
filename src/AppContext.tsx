@@ -38,12 +38,16 @@ const initialState: AppState = {
 
 export const AppContextProvider = ({ children }: AppContextProviderType) => {
   
-  const [state, dispatch] = useReducer(reducer, {}, () => stateStore.load(initialState));
+  const [state, dispatch] = useReducer(reducer, {}, () => ({
+    ...initialState, 
+    game: stateStore.load(initialState.game)
+  }));
+
   const lastFenRef = useRef(state.game.fen);
 
   useEffect(() => {
     if (state.game.fen !== lastFenRef.current) {
-      stateStore.save(state);
+      stateStore.save(state.game);
     }
   }, [state]);
 
