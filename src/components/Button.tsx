@@ -28,7 +28,7 @@ const Button: React.FC<ButtonProps> = ({
     secondary:
       "font-semibold bg-blue-700 hover:bg-blue-800 border-b-4 border-blue-900",
     tertiary:
-      "bg-transparent hover:bg-transparent/10 gap-2.5 border border-neutral-500 rounded-md",
+      "bg-transparent hover:bg-transparent/50 gap-2.5 border border-neutral-500 rounded-md",
   };
 
   return (
