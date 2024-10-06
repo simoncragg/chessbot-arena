@@ -1,6 +1,6 @@
 import type { Action, AppState, Player } from "./types";
 
-import React, { createContext, useContext, useEffect, useReducer, useRef } from "react";
+import React, { createContext, useContext, useReducer } from "react";
 import { Chess } from "chess.js";
 
 import reducer from "./reducers/AppReducer";
@@ -45,14 +45,6 @@ export const AppContextProvider = ({ children }: AppContextProviderType) => {
     ...initialState, 
     game: stateStore.load(initialState.game)
   }));
-
-  const lastFenRef = useRef(state.game.fen);
-
-  useEffect(() => {
-    if (state.game.isActive && state.game.fen !== lastFenRef.current) {
-      stateStore.save(state.game);
-    }
-  }, [state]);
 
   return (
     <AppContext.Provider value={{state, dispatch}}>

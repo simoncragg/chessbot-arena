@@ -64,8 +64,8 @@ export type MoveHistoryEntry = {
   postMoveFen: string;
 };
 
-export type Action = { type: "REHYDRATE_STATE", payload: AppState; }
-  | { type: "SET_CHESSBOTS", payload: ChessBot[]; }
+export type Action = 
+    { type: "SET_CHESSBOTS", payload: ChessBot[]; }
   | { type: "SET_WHITE"; payload: Player; }
   | { type: "SET_BLACK"; payload: Player; }
   | { type: "RESET_GAME" }

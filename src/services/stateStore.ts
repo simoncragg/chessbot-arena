@@ -7,6 +7,6 @@ export function load(initialState: GameState): GameState {
   return storedState ? JSON.parse(storedState) : initialState;
 }
   
-export function save(state: GameState) {
-  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state));
+export function save(game: GameState) {
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(game));
 };

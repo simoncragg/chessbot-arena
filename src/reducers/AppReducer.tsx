@@ -6,9 +6,6 @@ const reducer = (state: AppState, action: Action): AppState => {
   
   switch (action.type) {
 
-    case "REHYDRATE_STATE":
-      return action.payload;
-
     case "SET_CHESSBOTS":
       return setChessBots(state, action.payload);
 

@@ -10,6 +10,8 @@ import { useGame } from "../AppContext";
 import { useHumanMove } from "../hooks/useHumanMove";
 import GameControlBar from "../components/GameControlBar";
 
+import * as gameStore from "../services/stateStore";
+
 const GamePage: React.FC = () => {
   const { game, dispatch } = useGame();
 
@@ -18,6 +20,7 @@ const GamePage: React.FC = () => {
     white,
     black,
     fen,
+    moveHistory,
     lastMove,
     activePlayer,
     whiteCaptures,
@@ -45,6 +48,10 @@ const GamePage: React.FC = () => {
   }, [dispatch]);
 
   useEffect(() => {
+    gameStore.save(game);
+  }, [moveHistory.length]);
+
+  useEffect(() => {
     const { playerType, botId } = activePlayer;
 
     if (playerType === "Bot" && botId && !isGameOver) {
@@ -66,7 +73,7 @@ const GamePage: React.FC = () => {
         [lastMove.from]: { background: MOVE_HIGHLIGHT_COLOR },
         [lastMove.to]: { background: MOVE_HIGHLIGHT_COLOR },
       });
-    }
+    }    
   }, [lastMove, setMoveSquares]);
 
   useEffect(() => {
