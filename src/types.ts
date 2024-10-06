@@ -23,6 +23,8 @@ export type GameState = {
   fen: string;
   lastMove?: PieceMove;
   moveHistory: MoveHistoryEntry[];
+  currentMoveIndex: number;
+  isBoardLocked: boolean,
   activePlayer: Player;
   whiteCaptures: Captures,
   blackCaptures: Captures,
@@ -54,10 +56,11 @@ export type PieceMove = {
   from: string;
   to: string;
   promotion?: string;
+  san?: string;
 };
 
 export type MoveHistoryEntry = {
-  move: string;
+  move?: PieceMove;
   postMoveFen: string;
 };
 
@@ -68,7 +71,9 @@ export type Action = { type: "REHYDRATE_STATE", payload: AppState; }
   | { type: "RESET_GAME" }
   | { type: "START_GAME"; }
   | { type: "MAKE_MOVE"; payload: MakeMovePayload } 
-  | { type: "REMATCH"; };
+  | { type: "REMATCH"; }
+  | { type: "NAVIGATE_BACK"; }
+  | { type: "NAVIGATE_FORWARD"; };
 
 export type MakeMovePayload = {
   move: string | PieceMove;

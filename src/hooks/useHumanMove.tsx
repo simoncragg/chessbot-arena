@@ -11,7 +11,7 @@ type MoveSquares = Partial<Record<Square, { background: string }>>;
 
 export const useHumanMove = () => {
   const { game, dispatch } = useGame();
-  const { fen, activePlayer } = game;
+  const { fen, activePlayer, isBoardLocked } = game;
 
   const [moveFrom, setMoveFrom] = useState<{ square: Square, piece: PieceWithColor} | null>(null);
   const [moveTo, setMoveTo] = useState<Square | null>(null);
@@ -30,6 +30,9 @@ export const useHumanMove = () => {
   };
 
   const isDraggablePiece = (args: { piece: PieceWithColor }): boolean => {
+    if (isBoardLocked) {
+      return false;
+    }
     const pieceColour = args.piece.substring(0, 1) === "w" ? "White" : "Black";
     return pieceColour === activePlayer.colour;
   };

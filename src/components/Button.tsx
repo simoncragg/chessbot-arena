@@ -3,13 +3,22 @@ import React from "react";
 interface ButtonProps {
   type: "button" | "submit";
   variant: "primary" | "secondary" | "tertiary";
-  onClick?: () => void;
   padding?: "tight" | "loose";
   width?: string;
+  disabled?: boolean;
+  onClick?: () => void;
   children: React.ReactNode;
 }
 
-const Button: React.FC<ButtonProps> = ({ type, variant, padding, width, onClick, children }) => {
+const Button: React.FC<ButtonProps> = ({ 
+  type, 
+  variant, 
+  padding, 
+  width, 
+  disabled, 
+  onClick, 
+  children
+}) => {
 
   const paddingStyle = padding === "tight" ? "py-1.5 px-3" : "py-2 px-4"; 
   const baseStyles = `flex ${paddingStyle} items-center justify-center text-xl rounded-md ${width}`;
@@ -26,6 +35,7 @@ const Button: React.FC<ButtonProps> = ({ type, variant, padding, width, onClick,
     <button
       type={type}
       className={`${baseStyles} ${variantStyles[variant]}`}
+      disabled={disabled ?? false}
       onClick={onClick}
     >
       {children}

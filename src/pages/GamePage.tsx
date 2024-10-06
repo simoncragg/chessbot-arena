@@ -8,6 +8,7 @@ import { MOVE_HIGHLIGHT_COLOR } from "../constants";
 import { getRandomInt } from "../utils";
 import { useGame } from "../AppContext";
 import { useHumanMove } from "../hooks/useHumanMove";
+import GameControlBar from "../components/GameControlBar";
 
 const GamePage: React.FC = () => {
   const { game, dispatch } = useGame();
@@ -135,6 +136,8 @@ const GamePage: React.FC = () => {
               />
             )}
           </div>
+
+          <GameControlBar />
 
           {isGameOverModalOpen && (
             <GameOverModal

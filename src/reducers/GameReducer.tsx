@@ -33,6 +33,12 @@ const reducer = (state: GameState, action: Action): GameState => {
 
     case "REMATCH":
       return rematch(state);
+    
+    case "NAVIGATE_BACK":
+      return navigateBack(state);
+  
+    case "NAVIGATE_FORWARD":
+      return navigateForward(state);
 
     default:
       return state;
@@ -57,17 +63,20 @@ function setBlack(state: GameState, black: Player) {
 
 function resetGame(state: GameState) {
   const chess = new Chess();
+  const fen = chess.fen();
   const white: Player = { colour: "White", playerType: "Bot", name: "" };
   const black: Player = { colour: "Black", playerType: "Bot", name: "" };
 
   return { 
     ...state,
     isActive: false,
-    fen: chess.fen(),
+    fen,
     white,
     black,
     lastMove: undefined,
-    moveHistory: [],
+    moveHistory: [{ postMoveFen: fen}],
+    isBoardLocked: false,
+    currentMoveIndex: 0,
     activePlayer: { ...state.white },
     whiteCaptures: { capturedPieces: { p: 0, n: 0, b: 0, r: 0, q: 0 }, materialScore: 0 },
     blackCaptures: { capturedPieces: { p: 0, n: 0, b: 0, r: 0, q: 0 }, materialScore: 0 },
@@ -84,13 +93,16 @@ function startGame(state: GameState) {
   }
 
   const chess = new Chess();
+  const fen = chess.fen();
 
   return { 
     ...state,
     isActive: true,
-    fen: chess.fen(),
+    fen,
     lastMove: undefined,
-    moveHistory: [],
+    moveHistory: [{ postMoveFen: fen}],
+    currentMoveIndex: 0,
+    isBoardLocked: false,
     activePlayer: { ...state.white },
     whiteCaptures: { capturedPieces: { p: 0, n: 0, b: 0, r: 0, q: 0 }, materialScore: 0 },
     blackCaptures: { capturedPieces: { p: 0, n: 0, b: 0, r: 0, q: 0 }, materialScore: 0 },
@@ -117,7 +129,8 @@ function makeMove(state: GameState, payload: MakeMovePayload) {
   
   const fen = chess.fen();
   const moveHistoryEntry = { 
-    move: move.san, 
+    move,
+    san: move.san,
     postMoveFen: fen
   };
 
@@ -126,6 +139,7 @@ function makeMove(state: GameState, payload: MakeMovePayload) {
     fen,
     lastMove: move,
     moveHistory: [...state.moveHistory, moveHistoryEntry],
+    currentMoveIndex: state.moveHistory.length,
     activePlayer: getActivePlayer(chess, state),
     whiteCaptures: getCaptures(state, "White", move),
     blackCaptures: getCaptures(state, "Black", move),
@@ -135,13 +149,49 @@ function makeMove(state: GameState, payload: MakeMovePayload) {
   };
 }
 
+function navigateBack(state: GameState) {
+  if (state.currentMoveIndex > 0) {
+    const moveIndex = state.currentMoveIndex - 1;
+    const entry = state.moveHistory[moveIndex];
+
+    return {
+      ...state,
+      fen: entry.postMoveFen,
+      lastMove: entry.move,
+      currentMoveIndex: moveIndex,
+      isBoardLocked: moveIndex < state.moveHistory.length - 1
+    };
+  }
+
+  return state;
+}
+
+function navigateForward(state: GameState) {
+  if (state.currentMoveIndex < state.moveHistory.length - 1) {
+    const moveIndex = state.currentMoveIndex + 1;
+    const entry = state.moveHistory[moveIndex];
+
+    return {
+      ...state,
+      fen: entry.postMoveFen,
+      lastMove: entry.move,
+      currentMoveIndex: moveIndex,
+      isBoardLocked: moveIndex < state.moveHistory.length - 1
+    };
+  }
+
+  return state;
+}
+
 function rematch(state: GameState) {
   return startGame({ ...state, moveHistory: []});
 }
 
 function initChessObject(moveHistory: MoveHistoryEntry[]): Chess {
   const chess = new Chess();
-  moveHistory.forEach(({ move }) => chess.move(move));
+  moveHistory
+    .filter((_, i) => i > 0)
+    .forEach(({ move }) => chess.move(move!));
   return chess;
 }
 

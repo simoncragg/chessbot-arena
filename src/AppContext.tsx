@@ -27,6 +27,8 @@ const initialState: AppState = {
     black,
     fen: new Chess().fen(),
     moveHistory: [],
+    currentMoveIndex: 0,
+    isBoardLocked: false,
     activePlayer: white,
     whiteCaptures: { capturedPieces: { p: 0, n: 0, b: 0, r: 0, q: 0 }, materialScore: 0 },
     blackCaptures: { capturedPieces: { p: 0, n: 0, b: 0, r: 0, q: 0 }, materialScore: 0 },
