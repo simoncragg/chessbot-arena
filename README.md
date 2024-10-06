@@ -17,6 +17,7 @@ To set up **Chess Bot Arena** locally, follow these simple steps:
 
 1. Install dependencies:
     ```bash
+    # Requires Node v20.17.0 or higher
     npm i
     ```
 
