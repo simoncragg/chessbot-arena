@@ -1,50 +1,57 @@
-# React + TypeScript + Vite
+# Chess Bot Arena ♟️🤖🏟️
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+*Dive into the world of Chess Bot Arena and test your strategic skills against AI, or build your own bot to join the competition. Whether you're here to play or code, the arena awaits your challenge!*
 
-Currently, two official plugins are available:
+**Chess Bot Arena** is a responsive web app that allows users to challenge advanced chess bots or watch thrilling bot-vs-bot battles unfold. Originally conceived as a coding competition hub for developers to create and test their own bots, the app has evolved into a broader chess experience.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[https://chessbot-arena.netlify.app](https://chessbot-arena.netlify.app)
 
-## Expanding the ESLint configuration
+## Key Features
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Battle of the Bots**: Watch as resident bots face off in automated matches, showcasing their unique strategies and styles.
+- **Player vs. Bot**: Take control and play against any bot as either white or black. Can you outsmart the AI?
 
-- Configure the top-level `parserOptions` property like this:
+## Getting Started
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+To set up **Chess Bot Arena** locally, follow these simple steps:
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+1. Install dependencies:
+    ```bash
+    npm i
+    ```
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+2. Run tests:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+    ```bash
+    npm t
+    ```
+
+3. **Start the local development server** with simulated Netlify platform.
+
+    ```bash
+    npm run dev:netlify
+    ```
+
+## Tech Stack
+
+Chess Bot Arena is built with the following modern web technologies:
+
+- React
+- Vite & Vitest
+- TypeScript
+- Netlify Functions
+
+## License
+
+The MIT License (MIT)
+
+Copyright (c) 2024 Simon Cragg
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+## Author
+Simon Cragg
