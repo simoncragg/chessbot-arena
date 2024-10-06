@@ -21,7 +21,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
 
   const paddingStyle = padding === "tight" ? "py-1.5 px-3" : "py-2 px-4"; 
-  const baseStyles = `flex ${paddingStyle} items-center justify-center text-xl rounded-md ${width}`;
+  const baseStyles = `flex ${paddingStyle} items-center justify-center text-xl disabled:text-gray-400 rounded-md ${width}`;
   const variantStyles = {
     primary:
       "font-semibold bg-green-700 hover:bg-green-800 border-b-4 border-green-900",
